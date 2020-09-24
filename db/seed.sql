@@ -8,7 +8,7 @@ username VARCHAR(25),
 hash TEXT
 );
 
-CREATE TABLE genre_id(
+CREATE TABLE genre(
 genre_id SERIAL PRIMARY KEY,
 name TEXT
 );
@@ -16,7 +16,7 @@ name TEXT
 CREATE TABLE games(
 id SERIAL PRIMARY KEY,
 player_id INTEGER REFERENCES users (id),
-genre_id INTEGER REFERENCES genre_id (genre_id),
+genre_id INTEGER REFERENCES genre(genre_id),
 points_earned INTEGER,
 type_id INTEGER REFERENCES game_type(type_id)
 );

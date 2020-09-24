@@ -4,6 +4,7 @@ const session = require('express-session')
 const massive = require('massive')
 const authCtrl = require('./authController')
 const profileCtrl = require('./profileController')
+const statsCtrl = require('./statsController')
 
 const app = express()
 
@@ -28,6 +29,12 @@ app.put('/api/user/picture/:user_id', profileCtrl.updateProfilePicture)
 app.get('/api/titles', profileCtrl.getTitles)
 app.put('/api/user/title/:user_id', profileCtrl.updateTitle)
 app.put('/api/user/points/:user_id', profileCtrl.addPoints)
+
+//Stats Controller
+app.post('/api/stats', statsCtrl.postStats)
+app.delete('/api/stats', statsCtrl.deleteStats)
+app.get('/api/user/stats', statsCtrl.getUserStats)
+app.get('/api/stats', statsCtrl.getAllStats)
 
 
 massive({
