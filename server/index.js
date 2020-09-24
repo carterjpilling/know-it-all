@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
 const massive = require('massive')
+const authCtrl = require('./authController')
+const profileCtrl = require('./profileController')
 
 const app = express()
 
@@ -14,6 +16,15 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 365 }
 }))
+
+app.post('/api/auth/register', authCtrl.registerUser)
+app.post('/api/auth/login', authCtrl.loginUser)
+app.post('/api/auth/logout', authCtrl.logoutUser)
+app.get('/api/auth/me', authCtrl.getUser)
+
+//Profile Endpoints
+app.get('/api/profilepictures', profileCtrl.getProfilePictures)
+
 
 massive({
   connectionString: CONNECTION_STRING,

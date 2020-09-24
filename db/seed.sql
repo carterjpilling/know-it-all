@@ -5,7 +5,8 @@ profile_picture TEXT,
 status VARCHAR(100),
 points INT,
 email TEXT,
-username VARCHAR(25)
+username VARCHAR(25),
+hash TEXT
 );
 
 CREATE TABLE genre_id(
