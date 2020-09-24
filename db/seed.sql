@@ -2,7 +2,6 @@ CREATE TABLE users(
 id SERIAL PRIMARY KEY,
 title TEXT,
 profile_picture TEXT,
-status VARCHAR(100),
 points INT,
 email TEXT,
 username VARCHAR(25),
