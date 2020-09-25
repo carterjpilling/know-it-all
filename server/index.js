@@ -5,6 +5,7 @@ const massive = require('massive')
 const authCtrl = require('./authController')
 const profileCtrl = require('./profileController')
 const statsCtrl = require('./statsController')
+const artCtrl = require('./artController')
 
 const app = express()
 
@@ -35,6 +36,17 @@ app.post('/api/stats', statsCtrl.postStats)
 app.delete('/api/stats', statsCtrl.deleteStats)
 app.get('/api/user/stats', statsCtrl.getUserStats)
 app.get('/api/stats', statsCtrl.getAllStats)
+
+//Art Controller
+app.get('/api/art/vangogh', artCtrl.getVanGogh)
+app.get('/api/art/european', artCtrl.europeanArtistPaintings)
+// displayedname is not in use at the moment.
+app.get('/api/art/displayedname', artCtrl.onDisplayHighlightsName)
+app.get('/api/art/displayeddate', artCtrl.onDisplayHighlightsDate)
+app.get('/api/art/paintinghighlights', artCtrl.allPaintingsHighlights)
+app.get('/api/art/alldisplayed', artCtrl.allDisplayedArt)
+app.get('/api/art/american', artCtrl.americanWing)
+
 
 
 massive({
