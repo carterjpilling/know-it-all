@@ -24,19 +24,27 @@ module.exports = {
     //Need to have a catch if the artist has no name. 
 
     await axios.get(baseUrl + rand1).then((ans1) => {
-      answerSelection.push(ans1.data.title)
-
+      if (ans1.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        answerSelection.push(ans1.data.objectName)
+      }
     })
 
     await axios.get(baseUrl + rand2).then((ans2) => {
-
-      answerSelection.push(ans2.data.title)
-
+      if (ans2.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        answerSelection.push(ans2.data.objectName)
+      }
     })
 
     await axios.get(baseUrl + rand3).then((ans3) => {
-      answerSelection.push(ans3.data.title)
-
+      if (ans3.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        answerSelection.push(ans3.data.objectName)
+      }
     })
 
     const getShuffled = arr => {
@@ -69,22 +77,31 @@ module.exports = {
 
     const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
-    answerSelection.push(id)
 
     await axios.get(baseUrl + rand1).then((ans1) => {
-      answerSelection.push(ans1.data.artistDisplayName)
-
+      if (ans1.data.artistDisplayName === "") {
+        answerSelection.push("Unknown Artist")
+      } else {
+        answerSelection.push(ans1.data.artistDisplayName)
+      }
     })
 
+    answerSelection.push(id)
+
     await axios.get(baseUrl + rand2).then((ans2) => {
-
-      answerSelection.push(ans2.data.artistDisplayName)
-
+      if (ans2.data.artistDisplayName === "") {
+        answerSelection.push("Unknown Artist")
+      } else {
+        answerSelection.push(ans2.data.artistDisplayName)
+      }
     })
 
     await axios.get(baseUrl + rand3).then((ans3) => {
-      answerSelection.push(ans3.data.artistDisplayName)
-
+      if (ans3.data.artistDisplayName === "") {
+        answerSelection.push("Unknown Artist")
+      } else {
+        answerSelection.push(ans3.data.artistDisplayName)
+      }
     })
 
     const getShuffled = arr => {
@@ -177,21 +194,29 @@ module.exports = {
 
 
     await axios.get(baseUrl + rand1).then((ans1) => {
-      answerSelection.push(ans1.data.objectDate)
-
+      if (ans1.data.objectDate === "") {
+        answerSelection.push("Unknown Date")
+      } else {
+        answerSelection.push(ans1.data.objectDate)
+      }
     })
 
     answerSelection.push(id)
 
     await axios.get(baseUrl + rand2).then((ans2) => {
-
-      answerSelection.push(ans2.data.objectDate)
-
+      if (ans2.data.objectDate === "") {
+        answerSelection.push("Unknown Date")
+      } else {
+        answerSelection.push(ans2.data.objectDate)
+      }
     })
 
     await axios.get(baseUrl + rand3).then((ans3) => {
-      answerSelection.push(ans3.data.objectDate)
-
+      if (ans3.data.objectDate === "") {
+        answerSelection.push("Unknown Date")
+      } else {
+        answerSelection.push(ans3.data.objectDate)
+      }
     })
 
 
