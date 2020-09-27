@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Profpictures = () => {
+const Profpictures = (props) => {
+  console.log(props.state)
   return (
     <div>
-      ProfilePictures.js
+      {/* {props.state.profile_pictures} */}
+      Profilepictures.js
     </div>
   )
 }
