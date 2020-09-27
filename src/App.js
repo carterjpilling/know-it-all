@@ -1,12 +1,12 @@
 import React from 'react';
-import Dashboard from './Components/Dashboard/Dashboard'
-import Landing from './Components/Landing/Landing'
+import routes from './routes'
+import Navbar from '../src/Components/Nav/Navbar'
 
 function App() {
   return (
     <div >
-      <Dashboard />
-      <Landing />
+      {/* <Navbar /> */}
+      {routes}
     </div>
   );
 }

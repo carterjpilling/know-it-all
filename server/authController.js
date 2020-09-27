@@ -23,14 +23,13 @@ module.exports = {
 
     const profile_picture = `https://robothash.org/${username}?set=set5.png`
     const title = 'Owner of Little Knowledge'
-    const status = null
     const points = 0
 
 
     const salt = bcrpyt.genSaltSync(10)
     const hash = bcrpyt.hashSync(password, salt)
 
-    const [newUser] = await db.register_user([title, profile_picture, status, points, email, username, hash])
+    const [newUser] = await db.register_user([title, profile_picture, points, email, username, hash])
 
     req.session.user = newUser
 

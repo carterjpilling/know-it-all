@@ -2,6 +2,7 @@ import React from 'react'
 import Statistics from '../Statistics/Statistics'
 import Profile from '../Profile/Profile'
 
+//logout will need to exist here.
 function Nav() {
   return (
     <div>
