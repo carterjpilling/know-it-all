@@ -1,11 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
+import { loginUser } from '../../reducks/authReducer'
+import { connect } from 'react-redux'
 
-function Login() {
+
+function Login(props) {
+  const [state, setState] = useState({
+    username: '',
+    password: ''
+  })
+  const { username, password } = state;
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setState(state => ({ ...state, [name]: value }))
+  }
+
+  function handleLogin() {
+    axios
+      .post('/api/auth/register', { username, password })
+      .then((res) => {
+        this.props.loginUser(res.data)
+        this.props.history.push('/dashboard')
+      })
+  }
+
   return (
     <div>
-      Login
+
     </div>
   )
 }
 
-export default Login
+export default connect(null, { loginUser })(Login)
