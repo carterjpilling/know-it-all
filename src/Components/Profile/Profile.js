@@ -11,10 +11,10 @@ function Profile() {
 
   useEffect(() => {
     axios.get('/api/profilepictures')
-      .then((picres) => {
+      .then((picRes) => {
         axios.get('/api/titles')
-          .then((titlesres) => {
-            setState(state => ({ ...state, titles: titlesres.data, profile_pictures: picres.data }))
+          .then((titlesRes) => {
+            setState(state => ({ ...state, titles: titlesRes.data, profile_pictures: picRes.data }))
           })
       })
     console.log(state)

@@ -1,6 +1,5 @@
 module.exports = {
   getProfilePictures: async (req, res) => {
-    console.log('Hit profiles')
     const db = req.app.get('db')
     const pictures = await db.get_profilepictures()
     res.status(200).send(pictures)
@@ -18,7 +17,6 @@ module.exports = {
   },
 
   getTitles: async (req, res) => {
-    console.log('Hit Titles')
     const db = req.app.get('db')
     const titles = await db.get_titles()
     res.status(200).send(titles)

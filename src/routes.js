@@ -11,9 +11,9 @@ export default (
   <Switch>
     <Route exact path='/' component={Landing} />
     <Route path='/homepage' component={Dashboard} />
-    <Route path='/game' component={Game} />
+    <Route path='/game/:category' component={Game} />
     <Route exact path='/profile' component={Profile} />
     <Route path='/profile/statistics' component={Statistics} />
-    <Route render={() => <Redirect to="/" />} />
+    {/* <Route render={() => <Redirect to="/" />} /> */}
   </Switch>
 )
