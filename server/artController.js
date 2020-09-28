@@ -1,12 +1,8 @@
 const axios = require('axios')
 
+
 module.exports = {
   getArt: async (req, res) => {
-    //Declary an empty array.
-    //Have 10 arrays inside of it.
-    //Have 4 objects inside each array.
-    //40 ids pulled total.
-
     //Array for randomly pulling IDs.
     let array = []
 
@@ -16,44 +12,55 @@ module.exports = {
 
     const answerSelection = []
 
-    const group1 = [{}, {}, {}, {}]
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        group1[0].push(ans1.data.objectName)
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+
+
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
 
-      if (ans1.data.primaryImage === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        group1[0].push(ans1.data.objectName)
-      }
+      answerSelection.push(group1)
+    }
 
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        group1[0].push(ans1.data.objectName)
-      }
-
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        group1[0].push(ans1.data.objectName)
-      }
-    })
-
+    res.status(200).send(answerSelection)
 
   },
   getVanGogh: async (req, res) => {
-    const { id } = req.body
     const answerSelection = []
     let array = []
 
@@ -63,56 +70,55 @@ module.exports = {
     })
 
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
 
-    answerSelection.push(id)
+      const randomArray = [rand1, rand2, rand3, rand4]
 
-    //Need to write something so that they don't pull the same data. Maybe a splice or a if ( !== ).
-    //Need to have a catch if the artist has no name. 
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans1.data.title)
+
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans2.data.title)
-      }
-    })
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans3.data.title)
-      }
-    })
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   },
   europeanArtistPaintings: async (req, res) => {
-    const { id } = req.body
     const answerSelection = []
     let array = []
 
@@ -122,112 +128,58 @@ module.exports = {
     })
 
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
+      console.log(array)
+      console.log(i)
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans1.data.artistDisplayName)
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    answerSelection.push(id)
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans2.data.artistDisplayName)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans3.data.artistDisplayName)
-      }
-    })
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   },
-  onDisplayHighlightsName: async (req, res) => {
-    const { id } = req.body
-    const answerSelection = []
-    let array = []
 
-    //On display highlights (permanant collect), not restricted to paintings. Results 263 9.25.20. Pulling objectTitle.
-    await axios.get('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&isOnView=true&q=images').then((res) => {
-      array = res.data.objectIDs
-    })
-
-
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
-
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
-
-
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans1.data.title)
-      }
-    })
-
-    answerSelection.push(id)
-
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans2.data.title)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans3.data.title)
-      }
-    })
-
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
-  },
-  onDisplayHighlightsDate: async (req, res) => {
-    const { id } = req.body
+  onDisplayHighlights: async (req, res) => {
     const answerSelection = []
     let array = []
 
@@ -237,57 +189,58 @@ module.exports = {
     })
 
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
-
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans1.data.objectDate)
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+
+
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    answerSelection.push(id)
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans2.data.objectDate)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans3.data.objectDate)
-      }
-    })
-
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   },
 
 
   allPaintingsHighlights: async (req, res) => {
-    const { id } = req.body
     const answerSelection = []
     let array = []
 
@@ -297,55 +250,55 @@ module.exports = {
     })
 
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans1.data.artistDisplayName)
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    answerSelection.push(id)
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans2.data.artistDisplayName)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.artistDisplayName === "") {
-        answerSelection.push("Unknown Artist")
-      } else {
-        answerSelection.push(ans3.data.artistDisplayName)
-      }
-    })
-
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   },
   allDisplayedArt: async (req, res) => {
-    const { id } = req.body
     const answerSelection = []
     let array = []
 
@@ -354,56 +307,56 @@ module.exports = {
       array = res.data.objectIDs
     })
 
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans1.data.objectDate)
+      for (let i = 0; i < 4; i++) {
+
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    answerSelection.push(id)
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans2.data.objectDate)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.objectDate === "") {
-        answerSelection.push("Unknown Date")
-      } else {
-        answerSelection.push(ans3.data.objectDate)
-      }
-    })
-
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   },
   americanWing: async (req, res) => {
-    const { id } = req.body
     const answerSelection = []
     let array = []
 
@@ -412,52 +365,60 @@ module.exports = {
       array = res.data.objectIDs
     })
 
+    for (let i = 0; i < 10; i++) {
+      let group1 = [{}, {}, {}, {}]
 
-    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
 
-    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const randomArray = [rand1, rand2, rand3, rand4]
+
+      const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
 
 
-    await axios.get(baseUrl + rand1).then((ans1) => {
-      if (ans1.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans1.data.title)
+      for (let i = 0; i < 4; i++) {
+        await axios.get(baseUrl + randomArray[i]).then((res) => {
+          // group1[i].objectId = res.data.objectId
+          // console.log(res.data.objectId)
+          if (res.data.primaryImage === "") {
+            group1[i].primaryImage = "Unknown Picture"
+          } else {
+            group1[i].primaryImage = res.data.primaryImage
+          }
+
+          if (res.data.title === "") {
+            group1[i].title = "Unknown Title"
+          } else {
+            group1[i].title = res.data.title
+          }
+
+          if (res.data.objectDate === "") {
+            group1[i].objectDate = "Unknown Date"
+          } else {
+            group1[i].objectDate = res.data.objectDate
+          }
+
+          if (res.data.artistDisplayName === "") {
+            group1[i].artistDisplayName = "Unknown Artist"
+          } else {
+            group1[i].artistDisplayName = res.data.artistDisplayName
+          }
+        })
       }
-    })
 
-    answerSelection.push(id)
+      answerSelection.push(group1)
+    }
 
-    await axios.get(baseUrl + rand2).then((ans2) => {
-      if (ans2.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans2.data.title)
-      }
-    })
-
-    await axios.get(baseUrl + rand3).then((ans3) => {
-      if (ans3.data.objectName === "") {
-        answerSelection.push("Unknown Title")
-      } else {
-        answerSelection.push(ans3.data.title)
-      }
-    })
-
-
-    const getShuffled = arr => {
-      const newArr = arr.slice()
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const rand = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-      }
-      return newArr
-    };
-
-    const randomSelection = getShuffled(answerSelection)
-
-    res.status(200).send(randomSelection)
+    res.status(200).send(answerSelection)
   }
 }
+          // const getShuffled = arr => {
+          //   const newArr = arr.slice()
+          //   for (let i = newArr.length - 1; i > 0; i--) {
+          //     const rand = Math.floor(Math.random() * (i + 1));
+          //     [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+          //   }
+          //   return newArr
+          // };

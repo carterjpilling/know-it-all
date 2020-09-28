@@ -38,14 +38,14 @@ app.get('/api/user/stats', statsCtrl.getUserStats)
 app.get('/api/stats', statsCtrl.getAllStats)
 
 //Art Controller
-//Van Gogh 210 Responses 9.25.20. Pulling Titles. 
+//Current tester, not attributed to a specific search.
+app.get('/api/art', artCtrl.getArt)
+//Van Gogh 210 Responses 9.25.20. Pulling Titles. Currently pulls more than just Van Gogh.
 app.get('/api/art/vangogh', artCtrl.getVanGogh)
 //On display European Art (11), Results 180 9.25.20. Pulling Artist Name
 app.get('/api/art/european', artCtrl.europeanArtistPaintings)
-//On display highlights (permanant collect), not restricted to paintings. Results 263 9.25.20. Pulling objectTitle.
-app.get('/api/art/displayedname', artCtrl.onDisplayHighlightsName)
 //On display highlights (permanant collect), not restricted to paintings. Results 263 9.25.20. Pulling objectDate.
-app.get('/api/art/displayeddate', artCtrl.onDisplayHighlightsDate)
+app.get('/api/art/displayeddate', artCtrl.onDisplayHighlights)
 //Met highlights (permanant collect, not necessarily on view), restricted to paintings. Results 125 9.25.20. Pulling artist Display Name.
 app.get('/api/art/paintinghighlights', artCtrl.allPaintingsHighlights)
 //All displayed art at the met, restricted to nothing. Results 1916 9.25.20. Pulling objectDate.

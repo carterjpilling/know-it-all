@@ -1,4 +1,4 @@
-const array = [
+const answerSelection = [
   [{
     "primaryImage": "https://images.metmuseum.org/CRDImages/rl/original/DT3154.jpg",
     "title": "Madame Roulin and Her Baby",
@@ -30,6 +30,4 @@ const array = [
   [{}, {}, {}, {}],
   [{}, {}, {}, {}],
   [{}, {}, {}, {}]
-
-
 ]
