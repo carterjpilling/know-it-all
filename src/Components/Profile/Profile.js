@@ -6,19 +6,16 @@ import axios from 'axios'
 function Profile() {
   const [state, setState] = useState({
     profile_pictures: [],
-    title: []
+    titles: []
   })
 
   useEffect(() => {
     axios.get('/api/profilepictures')
-      .then((res) => {
-        console.log(res.data)
-        setState(state => ({ ...state, profile_pictures: res.data }))
-      })
-    axios.get('/api/titles')
-      .then((res) => {
-        console.log(res.data)
-        setState(state => ({ ...state, titles: res.data }))
+      .then((picres) => {
+        axios.get('/api/titles')
+          .then((titlesres) => {
+            setState(state => ({ ...state, titles: titlesres.data, profile_pictures: picres.data }))
+          })
       })
     console.log(state)
   }, [])
@@ -37,9 +34,8 @@ function Profile() {
 
   return (
     <div >
-      <Titles state={state.titles} />
-      <Profpictures state={state.profile_pictures} />
-        Profile.js
+      <Titles titlesData={state.titles} />
+      <Profpictures profilePictures={state.profile_pictures} />
     </div>
   )
 

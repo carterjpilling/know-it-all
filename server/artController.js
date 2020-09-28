@@ -1,6 +1,57 @@
 const axios = require('axios')
 
 module.exports = {
+  getArt: async (req, res) => {
+    //Declary an empty array.
+    //Have 10 arrays inside of it.
+    //Have 4 objects inside each array.
+    //40 ids pulled total.
+
+    //Array for randomly pulling IDs.
+    let array = []
+
+    await axios.get('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&isOnView=true&q=images').then((res) => {
+      array = res.data.objectIDs
+    })
+
+    const answerSelection = []
+
+    const group1 = [{}, {}, {}, {}]
+    const rand1 = array[Math.floor(Math.random() * array.length - 1)]
+    const rand2 = array[Math.floor(Math.random() * array.length - 1)]
+    const rand3 = array[Math.floor(Math.random() * array.length - 1)]
+    const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+
+    const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+
+    await axios.get(baseUrl + rand1).then((ans1) => {
+      if (ans1.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        group1[0].push(ans1.data.objectName)
+      }
+
+      if (ans1.data.primaryImage === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        group1[0].push(ans1.data.objectName)
+      }
+
+      if (ans1.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        group1[0].push(ans1.data.objectName)
+      }
+
+      if (ans1.data.objectName === "") {
+        answerSelection.push("Unknown Title")
+      } else {
+        group1[0].push(ans1.data.objectName)
+      }
+    })
+
+
+  },
   getVanGogh: async (req, res) => {
     const { id } = req.body
     const answerSelection = []
@@ -27,7 +78,7 @@ module.exports = {
       if (ans1.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans1.data.objectName)
+        answerSelection.push(ans1.data.title)
       }
     })
 
@@ -35,7 +86,7 @@ module.exports = {
       if (ans2.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans2.data.objectName)
+        answerSelection.push(ans2.data.title)
       }
     })
 
@@ -43,7 +94,7 @@ module.exports = {
       if (ans3.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans3.data.objectName)
+        answerSelection.push(ans3.data.title)
       }
     })
 
@@ -139,7 +190,7 @@ module.exports = {
       if (ans1.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans1.data.objectName)
+        answerSelection.push(ans1.data.title)
       }
     })
 
@@ -149,7 +200,7 @@ module.exports = {
       if (ans2.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans2.data.objectName)
+        answerSelection.push(ans2.data.title)
       }
     })
 
@@ -157,7 +208,7 @@ module.exports = {
       if (ans3.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans3.data.objectName)
+        answerSelection.push(ans3.data.title)
       }
     })
 
@@ -373,7 +424,7 @@ module.exports = {
       if (ans1.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans1.data.objectName)
+        answerSelection.push(ans1.data.title)
       }
     })
 
@@ -383,7 +434,7 @@ module.exports = {
       if (ans2.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans2.data.objectName)
+        answerSelection.push(ans2.data.title)
       }
     })
 
@@ -391,7 +442,7 @@ module.exports = {
       if (ans3.data.objectName === "") {
         answerSelection.push("Unknown Title")
       } else {
-        answerSelection.push(ans3.data.objectName)
+        answerSelection.push(ans3.data.title)
       }
     })
 

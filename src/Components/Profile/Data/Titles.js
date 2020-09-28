@@ -1,11 +1,15 @@
 import React from 'react'
 
 const Titles = (props) => {
-  console.log(props.state)
+  console.log(props.titlesData)
+  const titles = props.titlesData.map((titlenames, index) => {
+    return (
+      <p key={index}>{titlenames.title}</p>
+    )
+  })
   return (
     <div>
-      {/* {props.state} */}
-      Titles.js
+      {titles}
     </div>
   )
 }

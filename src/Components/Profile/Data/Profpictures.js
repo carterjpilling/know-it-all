@@ -1,11 +1,16 @@
 import React from 'react'
 
 const Profpictures = (props) => {
-  console.log(props.state)
+  const pictures = props.profilePictures.map((picture, index) => {
+    return (
+      <img key={index} src={picture.image} alt={picture.image} />
+      //state.image
+    )
+  })
   return (
     <div>
-      {/* {props.state.profile_pictures} */}
-      Profilepictures.js
+      {/* {props.state} */}
+      {pictures}
     </div>
   )
 }
