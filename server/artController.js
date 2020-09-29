@@ -4,7 +4,6 @@ const axios = require('axios')
 module.exports = {
   getArt: async (req, res) => {
     let array = []
-
     const { category } = req.params
 
     const EUROPEAN = 'european'
@@ -54,19 +53,33 @@ module.exports = {
     for (let i = 0; i < 10; i++) {
       let group1 = [{}, {}, {}, {}]
 
-      const rand1 = array[Math.floor(Math.random() * array.length - 1)]
-      const rand2 = array[Math.floor(Math.random() * array.length - 1)]
-      const rand3 = array[Math.floor(Math.random() * array.length - 1)]
-      const rand4 = array[Math.floor(Math.random() * array.length - 1)]
+      let rand1
+      let rand2
+      let rand3
+      let rand4
+
+      while (rand1 === undefined) {
+        rand1 = array[Math.floor(Math.random() * array.length - 1)]
+      }
+
+      while (rand2 === undefined) {
+        rand2 = array[Math.floor(Math.random() * array.length - 1)]
+      }
+
+      while (rand3 === undefined) {
+        rand3 = array[Math.floor(Math.random() * array.length - 1)]
+      }
+
+      while (rand4 === undefined) {
+        rand4 = array[Math.floor(Math.random() * array.length - 1)]
+      }
 
       const randomArray = [rand1, rand2, rand3, rand4]
-
+      console.log(randomArray)
       const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
-
 
       for (let i = 0; i < 4; i++) {
         await axios.get(baseUrl + randomArray[i]).then((res) => {
-          // group1[i].objectId = res.data.objectId
           if (res.data.primaryImage === "") {
             group1[i].primaryImage = "Unknown Picture"
           } else {
@@ -92,11 +105,9 @@ module.exports = {
           }
         })
       }
-
       answerSelection.push(group1)
     }
-
+    console.log('Success')
     res.status(200).send(answerSelection)
-
   }
 }
