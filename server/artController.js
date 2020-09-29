@@ -77,37 +77,41 @@ module.exports = {
       const randomArray = [rand1, rand2, rand3, rand4]
       console.log(randomArray)
       const baseUrl = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'
+      const promiseArr = randomArray.map(async artId => {
+        return await axios.get(baseUrl + artId)
+      })
+      //parallel vs nonparallel
+      //promiseAll (arrayOfPromises) waits for all. Doesn't care of order.
 
-      for (let i = 0; i < 4; i++) {
-        await axios.get(baseUrl + randomArray[i]).then((res) => {
-          if (res.data.primaryImage === "") {
-            group1[i].primaryImage = "Unknown Picture"
-          } else {
-            group1[i].primaryImage = res.data.primaryImage
-          }
+      const resArr = await Promise.all(promiseArr)
+      resArr.forEach((res, index) => {
+        if (res.data.primaryImage === "") {
+          group1[index].primaryImage = "Unknown Picture"
+        } else {
+          group1[index].primaryImage = res.data.primaryImage
+        }
 
-          if (res.data.title === "") {
-            group1[i].title = "Unknown Title"
-          } else {
-            group1[i].title = res.data.title
-          }
+        if (res.data.title === "") {
+          group1[index].title = "Unknown Title"
+        } else {
+          group1[index].title = res.data.title
+        }
 
-          if (res.data.objectDate === "") {
-            group1[i].objectDate = "Unknown Date"
-          } else {
-            group1[i].objectDate = res.data.objectDate
-          }
+        if (res.data.objectDate === "") {
+          group1[index].objectDate = "Unknown Date"
+        } else {
+          group1[index].objectDate = res.data.objectDate
+        }
 
-          if (res.data.artistDisplayName === "") {
-            group1[i].artistDisplayName = "Unknown Artist"
-          } else {
-            group1[i].artistDisplayName = res.data.artistDisplayName
-          }
-        })
-      }
+        if (res.data.artistDisplayName === "") {
+          group1[index].artistDisplayName = "Unknown Artist"
+        } else {
+          group1[index].artistDisplayName = res.data.artistDisplayName
+        }
+      })
       answerSelection.push(group1)
+      console.log('Success')
     }
-    console.log('Success')
     res.status(200).send(answerSelection)
   }
 }
