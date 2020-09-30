@@ -85,6 +85,8 @@ module.exports = {
 
       const resArr = await Promise.all(promiseArr)
       resArr.forEach((res, index) => {
+        group1[index].objectID = res.data.objectID
+
         if (res.data.primaryImage === "") {
           group1[index].primaryImage = "Unknown Picture"
         } else {

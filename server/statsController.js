@@ -15,6 +15,7 @@ module.exports = {
     const db = req.app.get('db')
     const { id } = req.session.user
     const { type_of_game, points_gained, genre } = req.body
+    // CONST 1 = 'american'
 
     await db.post_stats([id, genre, points_gained, type_of_game])
 

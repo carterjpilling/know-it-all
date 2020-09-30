@@ -1,3 +1,11 @@
 .first-picture{
   width: 250px;
 }
+
+.correct-answer{
+  background:green;
+}
+
+.incorrect-answer{
+  /* background:red; */
+}

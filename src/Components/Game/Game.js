@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Game.css'
 
 function Game(props) {
@@ -13,24 +14,20 @@ function Game(props) {
     isLoading: true
   })
 
-  const [page, setPage] = useState({
-    currentIndex: 0,
-    lastIndex: false
-  })
+  const [page, setPage] = useState({ currentIndex: 0, })
 
-  const [answers, setAnswers] = useState({
-    response1: 0,
-    response2: 0,
-    response3: 0,
-    response4: 0
-  })
+  const [answers, setAnswers] = useState({ responses: [] })
+
+  const [points, setPoints] = useState({ roundPoints: 0 })
+
+  const [buttonEnabler, setButtonEnabler] = useState(false)
+
 
   useEffect(() => {
     console.log(props.match.params.type)
     axios.get(`/api/art/${props.match.params.category}`).then((res) => {
-      console.log(res.data)
       setPage(() => {
-        return { ...page, currentIndex: 0, lastIndex: false }
+        return { ...page, currentIndex: 0 }
       })
       setCategory((prevState) => {
         return { ...prevState, [props.match.params.type]: true, gameArray: res.data, isLoading: false }
@@ -39,55 +36,116 @@ function Game(props) {
   }, [])
 
   useEffect(() => {
-    const { isLoading, title, artist, date } = category
-    if (isLoading !== true) {
-      if (title === true) {
-        setAnswers(() => {
-          return { response1: 1, response2: 2, response3: 3, response4: 4 }
-        })
-      }
+    const { isLoading, title, artist, date, gameArray } = category
+    const { currentIndex } = page
+    if (currentIndex !== 10) {
+      if (isLoading !== true) {
 
-      if (artist === true) {
-        setAnswers(() => {
-          return { response1: 5, response2: 6, response3: 7, response4: 8 }
-        })
-      }
+        const responseArr = []
+        if (title === true) {
+          responseArr.push(
+            { response: gameArray[currentIndex][0].title, id: gameArray[currentIndex][0].objectID },
+            { response: gameArray[currentIndex][1].title, id: gameArray[currentIndex][1].objectID },
+            { response: gameArray[currentIndex][2].title, id: gameArray[currentIndex][2].objectID },
+            { response: gameArray[currentIndex][3].title, id: gameArray[currentIndex][3].objectID }
+          )
+        }
 
-      if (date === true) {
-        setAnswers(() => {
-          return { response1: 9, response2: 10, response3: 11, response4: 12 }
-        })
+        if (artist === true) {
+          responseArr.push(
+            { response: gameArray[currentIndex][0].artistDisplayName, id: gameArray[currentIndex][0].objectID },
+            { response: gameArray[currentIndex][1].artistDisplayName, id: gameArray[currentIndex][1].objectID },
+            { response: gameArray[currentIndex][2].artistDisplayName, id: gameArray[currentIndex][2].objectID },
+            { response: gameArray[currentIndex][3].artistDisplayName, id: gameArray[currentIndex][3].objectID }
+          )
+          console.log('Hit Artist If')
+        }
+
+        if (date === true) {
+          responseArr.push(
+            { response: gameArray[currentIndex][0].objectDate, id: gameArray[currentIndex][0].objectID },
+            { response: gameArray[currentIndex][1].objectDate, id: gameArray[currentIndex][1].objectID },
+            { response: gameArray[currentIndex][2].objectDate, id: gameArray[currentIndex][2].objectID },
+            { response: gameArray[currentIndex][3].objectDate, id: gameArray[currentIndex][3].objectID }
+          )
+        }
+        const shuffledRes = getShuffled(responseArr)
+        setAnswers({ responses: shuffledRes })
       }
     }
-  }, [category])
-
-  // function loadAnswers() {
-  // }
-
-  // if (category.isLoading === true) {
-  //   loadAnswers()
-  // }
-
-  // if (category.isLoading ? true : console.log(category.gameArray[page.currentIndex][0].primaryImage)) {
-  // }
+  }, [category, page])
 
   function displayNextImage() {
-    setPage({
-      currentIndex: page.currentIndex + 1
+    setPage({ currentIndex: page.currentIndex + 1 })
+    setButtonEnabler(false)
+  }
+
+  function resetGame() {
+    setCategory({
+      title: false,
+      artist: false,
+      date: false,
+      gameArray: [],
+      isLoading: true
+    })
+    setAnswers({ responses: [] })
+    setPage({ currentIndex: 0 })
+  }
+
+  function checkAnswer(ans) {
+    console.log(ans)
+    if (ans === category.gameArray[page.currentIndex][0].objectID) {
+      setPoints({
+        roundPoints: (points.roundPoints += 10)
+      })
+    }
+    setButtonEnabler(true)
+  }
+
+  function submitRound() {
+    axios.post('/api/stats', {
+      type_of_game: 1,
+      points_gained: points.roundPoints,
+      genre: 1
     })
   }
 
+  const getShuffled = arr => {
+    const newArr = arr.slice()
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+    }
+    return newArr
+  };
 
+  const multipleChoiceResponses = answers.responses.map((element, index) => {
+    return (
+      <div key={index}>
+        <button onClick={() => checkAnswer(element.id)} disabled={buttonEnabler} className={category.gameArray[page.currentIndex] && element.id === category.gameArray[page.currentIndex][0].objectID && buttonEnabler === true ? 'correct-answer' : 'incorrect-answer'}>{element.response}</button>
+      </div>
+    )
+
+  })
 
   return (
     <div>
-      {page.currentIndex === 10 ? <button>Game Over</button> : <>{category.isLoading ?
-        <p>Loading...</p> : <img className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture' />
+      {page.currentIndex === 10 ? <div>
+        <Link to={'/homepage'} onClick={() => { resetGame() }}>Back to Home</Link>
+        <button onClick={() => submitRound()}>Submit Points</button>
+      </div> : <>{category.isLoading ?
+        <p>Loading...</p> : <div>
+          <img className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture' />
+          {multipleChoiceResponses}
+        </div>
       }
-        {page.currentIndex === 10 ? <button>Return to Home</button> : <button onClick={() => { displayNextImage() }}>Next Question</button>}</>}
-        Game.js
-      {/* <img src={category.gameArray[0][0].primaryImage} alt='reallycoolpicture' /> */}
-    </div>
+          <div>
+            {buttonEnabler === false ? null : <button onClick={() => { displayNextImage() }}>Next Question</button>}
+            <h3>Points:{points.roundPoints}</h3>
+            <p>Question {page.currentIndex + 1}/10</p>
+
+          </div></>}
+    </div >
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { loginUser, logoutUser } from '../../reducks/authReducer'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -30,7 +31,7 @@ function Login(props) {
       .post('/api/auth/login', { username, password })
       .then((res) => {
         props.loginUser(res.data)
-        // this.props.history.push('/dashboard')
+        props.history.push('/homepage')
       })
   }
 
@@ -74,7 +75,7 @@ function Login(props) {
           placeholder='Email' />
 
       </form>
-      <button onClick={() => { handleLogin() }}>Login</button>
+      <button onClick={() => { handleLogin() }} >Login</button>
       <button onClick={() => { handleRegister() }}>Register</button>
       <button onClick={() => { handleLogout() }}>Logout</button>
     </div>
@@ -82,4 +83,4 @@ function Login(props) {
 }
 const mapStateToProps = (reduxState) => reduxState
 
-export default connect(mapStateToProps, { loginUser, logoutUser })(Login)
+export default connect(mapStateToProps, { loginUser, logoutUser })(withRouter(Login))
