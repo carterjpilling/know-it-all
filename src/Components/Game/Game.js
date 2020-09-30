@@ -24,7 +24,8 @@ function Game(props) {
 
 
   useEffect(() => {
-    console.log(props.match.params.type)
+    let upper = props.match.params.type
+    console.log(upper.charAt(0).toUpperCase() + upper.slice(1))
     axios.get(`/api/art/${props.match.params.category}`).then((res) => {
       setPage(() => {
         return { ...page, currentIndex: 0 }
@@ -93,7 +94,6 @@ function Game(props) {
   }
 
   function checkAnswer(ans) {
-    console.log(ans)
     if (ans === category.gameArray[page.currentIndex][0].objectID) {
       setPoints({
         roundPoints: (points.roundPoints += 10)
@@ -103,11 +103,74 @@ function Game(props) {
   }
 
   function submitRound() {
+    console.log('hit submit')
+
+
+
+    const EUROPEAN = 'european'
+    const VAN_GOGH = 'van_gogh'
+    const DISPLAYED_ART = 'displayed'
+    const PERMANENT_PAINTINGS = 'permanent'
+    const AMERICAN = 'american'
+
+    let catObj
+
+    switch (props.match.params.category) {
+      case AMERICAN:
+        catObj = { catId: 1 }
+        break
+      case EUROPEAN:
+        catObj = { catId: 2 }
+        break
+      case PERMANENT_PAINTINGS:
+        catObj = { catId: 3 }
+        break
+      case DISPLAYED_ART:
+        catObj = { catId: 4 }
+        break
+      case VAN_GOGH:
+        catObj = { catId: 5 }
+        break
+      default:
+        return null
+    }
+
+    let gameObj
+
+    const DATE = 'date'
+    const ARTIST = 'artist'
+    const TITLE = 'title'
+
+    switch (props.match.params.type) {
+      case DATE:
+        gameObj = { qID: 1 }
+        break
+      case ARTIST:
+        gameObj = { qID: 2 }
+        break
+      case TITLE:
+        gameObj = { qID: 3 }
+        break
+      default:
+        return null
+    }
+    console.log('Submit middle hit')
+
     axios.post('/api/stats', {
-      type_of_game: 1,
+
+      type_of_game: 2,
       points_gained: points.roundPoints,
-      genre: 1
+      genre: catObj,
+      question_type: gameObj
+
+
+      //Type of game: 1:Open Guess, 2: Multiple Choice -- This will be multiple choice for the forseeable future.
+      //genre: 1:American, 2:European, 3: Permanent, 4: Displayed, 5:Van Gogh
+      //question_type: 1: Date, 2:Artist Name 3:Title
     })
+    console.log('hit end submit')
+    resetGame()
+    props.history.push('/homepage')
   }
 
   const getShuffled = arr => {
@@ -131,8 +194,7 @@ function Game(props) {
   return (
     <div>
       {page.currentIndex === 10 ? <div>
-        <Link to={'/homepage'} onClick={() => { resetGame() }}>Back to Home</Link>
-        <button onClick={() => submitRound()}>Submit Points</button>
+        <button onClick={() => submitRound()}>Submit Round</button>
       </div> : <>{category.isLoading ?
         <p>Loading...</p> : <div>
           <img className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture' />

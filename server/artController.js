@@ -8,8 +8,8 @@ module.exports = {
 
     const EUROPEAN = 'european'
     const VAN_GOGH = 'van_gogh'
-    const DISPLAYED_ART = 'displayed_art'
-    const PERMANENT_PAINTINGS = 'permanent_paintings'
+    const DISPLAYED_ART = 'displayed'
+    const PERMANENT_PAINTINGS = 'permanent'
     const AMERICAN = 'american'
 
 

@@ -19,6 +19,7 @@ player_id INTEGER REFERENCES users (id),
 genre_id INTEGER REFERENCES genre(genre_id),
 points_earned INTEGER,
 type_id INTEGER REFERENCES game_type(type_id)
+game_question_type INT REFERENCES question_type(id)
 );
 
 CREATE TABLE players_in_game(
@@ -36,3 +37,7 @@ CREATE TABLE users_auth(
 id SERIAL PRIMARY KEY,
 user_id INT REFERENCES users(id),
 hash text);
+
+CREATE TABLE question_type(
+id SERIAL PRIMARY KEY,
+name TEXT);

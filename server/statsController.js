@@ -6,20 +6,23 @@ const getTheStats = async (db) => {
 
 module.exports = {
   postStats: async (req, res) => {
-    /*
-    Need pull id from session
-    Provide points earned (coming from state)
-    Genre_id state
-    Game_type from state
-    */
     const db = req.app.get('db')
     const { id } = req.session.user
-    const { type_of_game, points_gained, genre } = req.body
-    // CONST 1 = 'american'
+    //pulled category off of params
+    const { type_of_game, points_gained, genre, question_type } = req.body
+    // type_of_game : Multiple Choice
+    // points_gained: polled off of state on Game.js
+    //genre: 1:American, 2:European, 3: Permanent, 4: Displayed (Pulled off of params, uppercased)
+    //question_type: 1: Data, 2:Artist Name 3:Title
 
-    await db.post_stats([id, genre, points_gained, type_of_game])
+    const { catId } = genre
+    const { qID } = question_type
+    console.log(id, catId, points_gained, type_of_game, qID)
+
+    await db.post_stats([id, catId, points_gained, type_of_game, qID])
 
     // const stats = await getTheStats(db)
+    console.log('Stats Hit')
     res.sendStatus(200)
 
 
