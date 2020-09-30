@@ -1,4 +1,3 @@
 UPDATE users
 SET points = (points + $1)
-WHERE id = $2
-returning *;
+WHERE id = $2;

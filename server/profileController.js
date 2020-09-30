@@ -8,10 +8,10 @@ module.exports = {
   updateProfilePicture: async (req, res) => {
     const db = req.app.get('db')
     const { new_picture } = req.body
-    const { user_id } = req.params
+    const { id } = req.params
 
     req.session.user.profile_picture = new_picture
-    await db.update_picture([new_picture, user_id])
+    await db.update_picture([new_picture, id])
     res.status(200).send(req.session.user)
 
   },
@@ -37,14 +37,12 @@ module.exports = {
   addPoints: async (req, res) => {
     const db = req.app.get('db')
     const { new_points } = req.body
-    const { user_id } = req.params
-
-    //I feel like I'm updating the users info on session and on SQL. I could be doing both of them at the same time. 
+    const { id } = req.session.user
 
     req.session.user.points = (req.session.user.points + new_points)
 
-    await db.add_points([new_points, user_id])
+    await db.add_points([new_points, id])
 
-    res.status(200).send(req.session.user)
+    res.status(200)
   }
 }

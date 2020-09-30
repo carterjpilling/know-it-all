@@ -93,6 +93,12 @@ function Game(props) {
     setPage({ currentIndex: 0 })
   }
 
+  function profilePoints() {
+    axios.put('/api/user/points', {
+      new_points: points.roundPoints
+    })
+  }
+
   function checkAnswer(ans) {
     if (ans === category.gameArray[page.currentIndex][0].objectID) {
       setPoints({
@@ -103,9 +109,6 @@ function Game(props) {
   }
 
   function submitRound() {
-    console.log('hit submit')
-
-
 
     const EUROPEAN = 'european'
     const VAN_GOGH = 'van_gogh'
@@ -135,11 +138,11 @@ function Game(props) {
         return null
     }
 
-    let gameObj
-
     const DATE = 'date'
     const ARTIST = 'artist'
     const TITLE = 'title'
+
+    let gameObj
 
     switch (props.match.params.type) {
       case DATE:
@@ -154,24 +157,16 @@ function Game(props) {
       default:
         return null
     }
-    console.log('Submit middle hit')
-
     axios.post('/api/stats', {
-
       type_of_game: 2,
       points_gained: points.roundPoints,
       genre: catObj,
       question_type: gameObj
-
-
-      //Type of game: 1:Open Guess, 2: Multiple Choice -- This will be multiple choice for the forseeable future.
-      //genre: 1:American, 2:European, 3: Permanent, 4: Displayed, 5:Van Gogh
-      //question_type: 1: Date, 2:Artist Name 3:Title
     })
-    console.log('hit end submit')
     resetGame()
+    profilePoints()
     props.history.push('/homepage')
-  }
+  };
 
   const getShuffled = arr => {
     const newArr = arr.slice()
@@ -188,8 +183,7 @@ function Game(props) {
         <button onClick={() => checkAnswer(element.id)} disabled={buttonEnabler} className={category.gameArray[page.currentIndex] && element.id === category.gameArray[page.currentIndex][0].objectID && buttonEnabler === true ? 'correct-answer' : 'incorrect-answer'}>{element.response}</button>
       </div>
     )
-
-  })
+  });
 
   return (
     <div>

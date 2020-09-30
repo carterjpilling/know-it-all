@@ -29,7 +29,7 @@ app.get('/api/profilepictures', profileCtrl.getProfilePictures)
 app.put('/api/user/picture/:user_id', profileCtrl.updateProfilePicture)
 app.get('/api/titles', profileCtrl.getTitles)
 app.put('/api/user/title/:user_id', profileCtrl.updateTitle)
-app.put('/api/user/points/:user_id', profileCtrl.addPoints)
+app.put('/api/user/points', profileCtrl.addPoints)
 
 //Stats Controller
 app.post('/api/stats', statsCtrl.postStats)
