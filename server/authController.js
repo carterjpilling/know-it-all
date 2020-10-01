@@ -21,7 +21,7 @@ module.exports = {
       return res.status(409).send('Email already in use.')
     }
 
-    const profile_picture = `https://robothash.org/${username}?set=set5.png`
+    const profile_picture = `https://clipground.com/images/mak-clipart-11.jpg`
     const title = 'Owner of Little Knowledge'
     const points = 0
 

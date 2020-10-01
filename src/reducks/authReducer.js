@@ -1,4 +1,4 @@
-// import axios from ' axios'
+import axios from 'axios'
 
 const initialState = {
   user: {},
@@ -28,14 +28,14 @@ export function logoutUser() {
   }
 }
 
-// export function getUser() {
-//   const payload = axios.get('/api/auth/me')
+export function getUser() {
+  const payload = axios.get('/api/auth/me')
 
-//   return {
-//     type: GET_USER,
-//     payload: payload
-//   }
-// }
+  return {
+    type: GET_USER,
+    payload: payload
+  }
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {

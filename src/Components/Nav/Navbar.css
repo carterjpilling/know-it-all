@@ -1,0 +1,15 @@
+.nav-header{
+  display:flex;
+  justify-content: space-evenly;
+  /* position:fixed; */
+  align-items: center;
+  height: 45px;
+  width: 100vw;
+}
+
+.img-profile-picture{
+  width: 25px;
+}
+.div-profile-header{
+  display: flex;
+}
