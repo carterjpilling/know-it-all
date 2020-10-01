@@ -6,17 +6,11 @@ import { connect } from 'react-redux'
 
 
 function Login(props) {
-  // console.log(props)
   const [state, setState] = useState({
     email: '',
     username: '',
     password: ''
   })
-  // const [registerState, setRegisterState] = useState({
-  //   email: '',
-  //   username: '',
-  //   password: ''
-  // })
 
   const { email, username, password } = state;
   function handleChange(e) {
@@ -25,8 +19,6 @@ function Login(props) {
   }
 
   function handleLogin(e) {
-    // e.preventDefault()
-
     axios
       .post('/api/auth/login', { username, password })
       .then((res) => {
@@ -36,7 +28,6 @@ function Login(props) {
   }
 
   function handleRegister(e) {
-    // e.preventDefault()
     axios.post('/api/auth/register', { email, username, password })
       .then((res) => {
         props.loginUser(res.data)
