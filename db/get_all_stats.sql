@@ -1,4 +1,4 @@
-SELECT g.id, g.points_earned, u.username, gr.name AS Category, gt.name as Game_Type, qt.name AS question_type
+SELECT g.id, g.points_earned, u.id AS User_ID, u.username, gr.name AS Category, gt.name as Game_Type, qt.name AS question_type
 FROM games g 
 JOIN genre gr ON g.genre_id = gr.genre_id
 JOIN game_type gt ON g.type_id = gt.type_id
