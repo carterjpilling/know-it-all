@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import Titles from './Data/Titles'
-import Profpictures from './Data/Profpictures'
+import { withRouter } from 'react-router-dom'
+import { getUser } from '../../reducks/authReducer'
+import { connect } from 'react-redux'
 import axios from 'axios'
 
-function Profile() {
+function Profile(props) {
   const [state, setState] = useState({
     profile_pictures: [],
     titles: []
+  })
+
+  const [profileChange, setProfileChange] = useState({
+    new_picture: props.user.profile_picture,
+    new_title: props.user.title
   })
 
   useEffect(() => {
@@ -20,26 +26,65 @@ function Profile() {
     console.log(state)
   }, [])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios.get('api/profilepictures')
-  //     setState(result.data)
-  //     console.log(result.data)
-  //   }
-  //   fetchData()
-  //   console.log(state)
-  // }, [])
+
+  function updatePicture(pic) {
+    setProfileChange({
+      ...profileChange,
+      new_picture: pic
+    })
+  }
+
+  function updateTitle(title) {
+    setProfileChange({
+      ...profileChange,
+      new_title: title
+    })
+  }
+
+  function saveProfileChanges() {
+    axios.put('/api/user/picture', {
+      new_picture: profileChange.new_picture
+    })
+    axios.put('/api/user/title', {
+      new_title: profileChange.new_title
+    })
+      .then(() => {
+        props.getUser()
+        props.history.push('/homepage')
+      })
+
+  }
 
 
+  const profPicturesMap = state.profile_pictures.map((element, index) => {
+    return (
+
+      <div key={index}>
+        <img src={element.image} onClick={() => updatePicture(element.image)} alt={element.image} />
+      </div>
+    )
+  })
+
+  const profTitleMap = state.titles.map((element, index) => {
+    return (
+      <div key={index}>
+        <p onClick={() => updateTitle(element.title)}>{element.title}</p>
+      </div>
+    )
+  })
 
   return (
     <div >
-      <Titles titlesData={state.titles} />
-      <Profpictures profilePictures={state.profile_pictures} />
+      {profPicturesMap}
+      {profTitleMap}
+      <button onClick={() => saveProfileChanges()}>Save Profile Changes</button>
+      {/* <Titles titlesData={state.titles} />
+      <Profpictures profilePictures={state.profile_pictures} /> */}
     </div>
   )
 
 
 }
+const mapStateToProps = (reduxState) => reduxState
 
-export default Profile
+export default withRouter(connect(mapStateToProps, { getUser })(Profile))

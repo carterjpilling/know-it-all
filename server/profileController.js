@@ -8,7 +8,7 @@ module.exports = {
   updateProfilePicture: async (req, res) => {
     const db = req.app.get('db')
     const { new_picture } = req.body
-    const { id } = req.params
+    const { id } = req.session.user
 
     req.session.user.profile_picture = new_picture
     await db.update_picture([new_picture, id])
@@ -26,7 +26,7 @@ module.exports = {
   updateTitle: async (req, res) => {
     const db = req.app.get('db')
     const { new_title } = req.body
-    const { user_id } = req.params
+    const { user_id } = req.session.user
 
     req.session.user.title = new_title
     await db.update_title([new_title, user_id])
