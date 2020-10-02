@@ -1,0 +1,17 @@
+
+.nav-header{
+  background-color: grey;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+  div{
+    display:flex;
+    align-items: center;
+    p{
+      margin: 5px;
+    }
+    img{
+      width: 50px;
+    }
+  }
+}

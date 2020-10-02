@@ -1,3 +1,4 @@
+@import '../../variables';
 .nav-header{
   display:flex;
   justify-content: space-evenly;
@@ -5,6 +6,8 @@
   align-items: center;
   height: 45px;
   width: 100vw;
+  background-color: $primary;
+  font-family: 'Roboto', sans-serif;
 }
 
 .img-profile-picture{
