@@ -134,10 +134,16 @@ function Statistics(props) {
     let dispArtist = []
     let dispTitle = []
 
+    let americPoints = []
+    let euroPoints = []
+    let permPoints = []
+    let disPoints = []
+
 
     for (let i = 0; i < userStats.responses.length; i++) {
       switch (userStats.responses[i].category) {
         case AMERICAN:
+          americPoints.push(userStats.responses[i].points_earned)
           switch (userStats.responses[i].question_type) {
             case DATE:
               americDate.push(userStats.responses[i].points_earned)
@@ -153,6 +159,7 @@ function Statistics(props) {
           }
           break
         case EUROPEAN:
+          euroPoints.push(userStats.responses[i].points_earned)
           switch (userStats.responses[i].question_type) {
             case DATE:
               euroDate.push(userStats.responses[i].points_earned)
@@ -168,6 +175,7 @@ function Statistics(props) {
           }
           break
         case PERMANENT_PAINTINGS:
+          permPoints.push(userStats.responses[i].points_earned)
           switch (userStats.responses[i].question_type) {
             case DATE:
               permDate.push(userStats.responses[i].points_earned)
@@ -183,6 +191,7 @@ function Statistics(props) {
           }
           break
         case DISPLAYED_ART:
+          disPoints.push(userStats.responses[i].points_earned)
           switch (userStats.responses[i].question_type) {
             case DATE:
               dispDate.push(userStats.responses[i].points_earned)
@@ -204,7 +213,7 @@ function Statistics(props) {
       }
     }
 
-    const gameObject = { americDate, americArtist, americTitle, euroDate, euroArtist, euroTitle, permDate, permArtist, permTitle, dispDate, dispArtist, dispTitle }
+    const gameObject = { americDate, americArtist, americTitle, euroDate, euroArtist, euroTitle, permDate, permArtist, permTitle, dispDate, dispArtist, dispTitle, americPoints, euroPoints, permPoints, disPoints }
 
     for (let prop in gameObject) {
       let average = 0
@@ -218,7 +227,20 @@ function Statistics(props) {
     setUserDataBank({
       dataArr: [
         {
+          category: "General Art",
+          average: gameObject.disPoints.average,
+          gamesPlayed: gameObject.disPoints.length,
+          date: gameObject.dispDate.average,
+          dateGames: gameObject.dispDate.length,
+          artist: gameObject.dispArtist.average,
+          artistGames: gameObject.dispArtist.length,
+          title: gameObject.dispTitle.average,
+          titleGames: gameObject.dispTitle.length
+        },
+        {
           category: "American",
+          average: gameObject.americPoints.average,
+          gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
           artist: gameObject.americArtist.average,
@@ -229,6 +251,8 @@ function Statistics(props) {
         },
         {
           category: "European",
+          average: gameObject.euroPoints.average,
+          gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
           artist: gameObject.euroArtist.average,
@@ -237,23 +261,17 @@ function Statistics(props) {
           titleGames: gameObject.euroTitle.length
         },
         {
-          category: "Permanent Pieces",
+          category: "General Paintings",
+          average: gameObject.permPoints.average,
+          gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
           artist: gameObject.permArtist.average,
           artistGames: gameObject.permArtist.length,
           title: gameObject.permTitle.average,
           titleGames: gameObject.permTitle.length
-        },
-        {
-          category: "All Displayed Pieces",
-          date: gameObject.dispDate.average,
-          dateGames: gameObject.dispDate.length,
-          artist: gameObject.dispArtist.average,
-          artistGames: gameObject.dispArtist.length,
-          title: gameObject.dispTitle.average,
-          titleGames: gameObject.dispTitle.length
         }
+
       ]
     })
   }
@@ -286,9 +304,16 @@ function Statistics(props) {
     let dispTitle = []
 
 
+    let americPoints = []
+    let euroPoints = []
+    let permPoints = []
+    let disPoints = []
+
+
     for (let i = 0; i < allStats.responses.length; i++) {
       switch (allStats.responses[i].category) {
         case AMERICAN:
+          americPoints.push(allStats.responses[i].points_earned)
           switch (allStats.responses[i].question_type) {
             case DATE:
               americDate.push(allStats.responses[i].points_earned)
@@ -304,6 +329,7 @@ function Statistics(props) {
           }
           break
         case EUROPEAN:
+          euroPoints.push(allStats.responses[i].points_earned)
           switch (allStats.responses[i].question_type) {
             case DATE:
               euroDate.push(allStats.responses[i].points_earned)
@@ -319,6 +345,7 @@ function Statistics(props) {
           }
           break
         case PERMANENT_PAINTINGS:
+          permPoints.push(allStats.responses[i].points_earned)
           switch (allStats.responses[i].question_type) {
             case DATE:
               permDate.push(allStats.responses[i].points_earned)
@@ -334,6 +361,7 @@ function Statistics(props) {
           }
           break
         case DISPLAYED_ART:
+          disPoints.push(allStats.responses[i].points_earned)
           switch (allStats.responses[i].question_type) {
             case DATE:
               dispDate.push(allStats.responses[i].points_earned)
@@ -355,7 +383,7 @@ function Statistics(props) {
       }
     }
 
-    const gameObject = { americDate, americArtist, americTitle, euroDate, euroArtist, euroTitle, permDate, permArtist, permTitle, dispDate, dispArtist, dispTitle }
+    const gameObject = { americDate, americArtist, americTitle, euroDate, euroArtist, euroTitle, permDate, permArtist, permTitle, dispDate, dispArtist, dispTitle, americPoints, euroPoints, permPoints, disPoints }
 
     for (let prop in gameObject) {
       let average = 0
@@ -369,7 +397,20 @@ function Statistics(props) {
     setDatabank({
       dataArr: [
         {
+          category: "General Art",
+          average: gameObject.disPoints.average,
+          gamesPlayed: gameObject.disPoints.length,
+          date: gameObject.dispDate.average,
+          dateGames: gameObject.dispDate.length,
+          artist: gameObject.dispArtist.average,
+          artistGames: gameObject.dispArtist.length,
+          title: gameObject.dispTitle.average,
+          titleGames: gameObject.dispTitle.length
+        },
+        {
           category: "American",
+          average: gameObject.americPoints.average,
+          gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
           artist: gameObject.americArtist.average,
@@ -380,6 +421,8 @@ function Statistics(props) {
         },
         {
           category: "European",
+          average: gameObject.euroPoints.average,
+          gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
           artist: gameObject.euroArtist.average,
@@ -388,26 +431,18 @@ function Statistics(props) {
           titleGames: gameObject.euroTitle.length
         },
         {
-          category: "Permanent Pieces",
+          category: "General Paintings",
+          average: gameObject.permPoints.average,
+          gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
           artist: gameObject.permArtist.average,
           artistGames: gameObject.permArtist.length,
           title: gameObject.permTitle.average,
           titleGames: gameObject.permTitle.length
-        },
-        {
-          category: "All Displayed Pieces",
-          date: gameObject.dispDate.average,
-          dateGames: gameObject.dispDate.length,
-          artist: gameObject.dispArtist.average,
-          artistGames: gameObject.dispArtist.length,
-          title: gameObject.dispTitle.average,
-          titleGames: gameObject.dispTitle.length
         }
       ]
     })
-    console.log(databank.dataArr)
   }
 
   if (allStats.isLoading === true) {
@@ -423,45 +458,14 @@ function Statistics(props) {
             <button onClick={() => toggleUserCategories(0, 'American', 'American')}>Toggle American Category</button>
           </div>
           <ResponsiveBar data={userDataBank.dataArr}
-            keys={[userGraphKeys.date, userGraphKeys.artist, userGraphKeys.title]}
+            keys={['average']}
             indexBy="category"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
-            groupMode="grouped"
-            colors={{ scheme: 'nivo' }}
+            colors={{ scheme: 'category10' }}
+            colorBy="index"
             defs={[
-              {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: '#38bcb2',
-                size: 4,
-                padding: 1,
-                stagger: true
-              },
-              {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: '#eed312',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-              }
-            ]}
-            fill={[
-              {
-                match: {
-                  id: 'fries'
-                },
-                id: 'dots'
-              },
-              {
-                match: {
-                  id: 'sandwich'
-                },
-                id: 'lines'
-              }
+
             ]}
             borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
             axisTop={null}
@@ -478,7 +482,7 @@ function Statistics(props) {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: 'average score',
+              legend: 'Average Score',
               legendPosition: 'middle',
               legendOffset: -40
             }}
@@ -486,46 +490,26 @@ function Statistics(props) {
             labelSkipHeight={12}
             labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
             legends={[
-              {
-                dataFrom: 'keys',
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 120,
-                translateY: 0,
-                itemsSpacing: 2,
-                itemWidth: 100,
-                itemHeight: 20,
-                itemDirection: 'left-to-right',
-                itemOpacity: 0.85,
-                symbolSize: 20,
-                effects: [
-                  {
-                    on: 'hover',
-                    style: {
-                      itemOpacity: 1
-                    }
-                  }
-                ]
-              }
+
             ]}
             animate={true}
             motionStiffness={90}
-            motionDamping={15} />
+            motionDamping={15}
+          />
         </div>
         <div className='statistics-container'>
-          <div>
+          {/* <div>
             <button onClick={() => toggleAllGraphType('artist')}>Toggle Artist Game Type</button>
             <button onClick={() => toggleAllGraphType('title')}>Toggle Title Game Type</button>
             <button onClick={() => toggleAllGraphType('date')}>Toggle Date Game Type</button>
-          </div>
+          </div> */}
           <ResponsiveBar data={databank.dataArr}
-            keys={[allGraphKeys.date, allGraphKeys.artist, allGraphKeys.title]}
+            keys={['average']}
             indexBy="category"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
-            groupMode="grouped"
-            colors={{ scheme: 'nivo' }}
+            colors={{ scheme: 'category10' }}
+            colorBy="index"
             defs={[
               {
                 id: 'dots',
@@ -575,7 +559,7 @@ function Statistics(props) {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: 'average score',
+              legend: 'Average Score',
               legendPosition: 'middle',
               legendOffset: -40
             }}
@@ -583,33 +567,14 @@ function Statistics(props) {
             labelSkipHeight={12}
             labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
             legends={[
-              {
-                dataFrom: 'keys',
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 120,
-                translateY: 0,
-                itemsSpacing: 2,
-                itemWidth: 100,
-                itemHeight: 20,
-                itemDirection: 'left-to-right',
-                itemOpacity: 0.85,
-                symbolSize: 20,
-                effects: [
-                  {
-                    on: 'hover',
-                    style: {
-                      itemOpacity: 1
-                    }
-                  }
-                ]
-              }
+
             ]}
             animate={true}
             motionStiffness={90}
-            motionDamping={15} />
-        </div></div>
+            motionDamping={15}
+          />
+        </div>
+      </div>
     )
   } else {
     return <div>Loading...</div>
