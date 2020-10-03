@@ -10,7 +10,67 @@ function Statistics(props) {
   const [databank, setDatabank] = useState({ dataArr: [] })
   const [userStats, setUserStats] = useState({ responses: [] })
   const [userDataBank, setUserDataBank] = useState({ dataArr: [] })
+  const [allGraphKeys, setAllGraphKeys] = useState({
+    date: 'date',
+    artist: 'artist',
+    title: 'title'
+  })
+  const [userGraphKeys, setUserGraphKeys] = useState({
+    date: 'date',
+    artist: 'artist',
+    title: 'title'
+  })
 
+  function toggleUserGraphType(type) {
+    if (userGraphKeys[type] === null) {
+      setUserGraphKeys({
+        ...userGraphKeys,
+        [type]: type,
+        [type]: type,
+        [type]: type
+      })
+    } else {
+      setUserGraphKeys({
+        ...userGraphKeys,
+        [type]: null,
+        [type]: null,
+        [type]: null
+      })
+    }
+  }
+  //toggleUserCategories is not functioning.
+  //0 American, 1. European, 2. Permanent. 3 All Displayed
+  function toggleUserCategories(index, cat) {
+    let obj = [{}, {}, {}, {}]
+    if (userDataBank.dataArr[index].category === cat) {
+      userDataBank.dataArr.splice(index, null, obj[index])
+    } else {
+      obj[index] = userDataBank.dataArr.splice(index, 1)
+    }
+    console.log(userDataBank.dataArr.splice(index, 1))
+    console.log(obj[index])
+  }
+  function toggleAllCategories() {
+
+  }
+
+  function toggleAllGraphType(type) {
+    if (allGraphKeys[type] === null) {
+      setAllGraphKeys({
+        ...allGraphKeys,
+        [type]: type,
+        [type]: type,
+        [type]: type
+      })
+    } else {
+      setAllGraphKeys({
+        ...allGraphKeys,
+        [type]: null,
+        [type]: null,
+        [type]: null
+      })
+    }
+  }
   useEffect(() => {
     axios.get('/api/stats').then((res) => {
       setStats({ responses: res.data, isLoading: true })
@@ -18,6 +78,7 @@ function Statistics(props) {
 
   }, [])
 
+  console.log(userDataBank.dataArr)
   useEffect(() => {
     if (allStats.isLoading === true) {
       getAverages()
@@ -346,14 +407,23 @@ function Statistics(props) {
         }
       ]
     })
+    console.log(databank.dataArr)
   }
 
   if (allStats.isLoading === true) {
     return (
       <div className='grandparent-statistics-container'>
         <div className='statistics-container'>
+          <div>
+            <button onClick={() => toggleUserGraphType('artist')}>Toggle Artist Game Type</button>
+            <button onClick={() => toggleUserGraphType('title')}>Toggle Title Game Type</button>
+            <button onClick={() => toggleUserGraphType('date')}>Toggle Date Game Type</button>
+          </div>
+          <div>
+            <button onClick={() => toggleUserCategories(0, 'American', 'American')}>Toggle American Category</button>
+          </div>
           <ResponsiveBar data={userDataBank.dataArr}
-            keys={['date', 'artist', 'title']}
+            keys={[userGraphKeys.date, userGraphKeys.artist, userGraphKeys.title]}
             indexBy="category"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
@@ -444,8 +514,13 @@ function Statistics(props) {
             motionDamping={15} />
         </div>
         <div className='statistics-container'>
+          <div>
+            <button onClick={() => toggleAllGraphType('artist')}>Toggle Artist Game Type</button>
+            <button onClick={() => toggleAllGraphType('title')}>Toggle Title Game Type</button>
+            <button onClick={() => toggleAllGraphType('date')}>Toggle Date Game Type</button>
+          </div>
           <ResponsiveBar data={databank.dataArr}
-            keys={['date', 'artist', 'title']}
+            keys={[allGraphKeys.date, allGraphKeys.artist, allGraphKeys.title]}
             indexBy="category"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}

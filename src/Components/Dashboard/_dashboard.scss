@@ -1,0 +1,27 @@
+.dashboard-container{
+  display: flex;
+  height: 100%;
+  width: 100vw;
+  // flex-direction: column;
+  div{
+    img{
+      width: 150px;
+    }
+    img:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+.pop-up-game-box{
+  position: fixed;
+  top: 200px;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  height: 45vh;
+  width: 350px;
+  border: 2px solid black;
+  background-color: white;
+}

@@ -35,7 +35,7 @@ function Nav(props) {
         <Link to='/profile/statistics'>Stats Page</Link>
         <Link to='/profile'>Profile Page</Link>
         <button onClick={() => triggerLogout()}>Signout</button>
-        <div className='div-profile-header'>
+        <div>
           <p>{props.user.points}</p>
           <p>{props.user.username}</p>
           <img className='img-profile-picture' src={props.user.profile_picture} alt={'user profile'} />

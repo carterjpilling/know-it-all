@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getUser } from '../../reducks/authReducer'
 import './Game.css'
 
 function Game(props) {
 
   const [category, setCategory] = useState({
-    title: false,
-    artist: false,
-    date: false,
     gameArray: [],
     isLoading: true
   })
@@ -21,28 +20,43 @@ function Game(props) {
 
   const [buttonEnabler, setButtonEnabler] = useState(false)
 
+  const [questionType, setQuestionType] = useState([])
 
   useEffect(() => {
-    let upper = props.match.params.type
-    console.log(upper.charAt(0).toUpperCase() + upper.slice(1))
+
+  }, [page])
+
+  function randomQuestionType(arr) {
+    const newArr = arr.slice()
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+    }
+    setQuestionType({ newArr })
+  }
+
+  useEffect(() => {
     axios.get(`/api/art/${props.match.params.category}`).then((res) => {
-      setPage(() => {
-        return { ...page, currentIndex: 0 }
-      })
+      setPage({ currentIndex: 0 })
       setCategory((prevState) => {
-        return { ...prevState, [props.match.params.type]: true, gameArray: res.data, isLoading: false }
+        return { ...prevState, gameArray: res.data, isLoading: false }
       })
     })
   }, [])
+  useEffect(() => {
+    randomQuestionType(['title', 'artist', 'date'])
+  }, [page])
 
   useEffect(() => {
-    const { isLoading, title, artist, date, gameArray } = category
+    const { isLoading, gameArray } = category
+    const { newArr } = questionType
     const { currentIndex } = page
+
+
     if (currentIndex !== 10) {
       if (isLoading !== true) {
-
         const responseArr = []
-        if (title === true) {
+        if (newArr[0] === 'title') {
           responseArr.push(
             { response: gameArray[currentIndex][0].title, id: gameArray[currentIndex][0].objectID },
             { response: gameArray[currentIndex][1].title, id: gameArray[currentIndex][1].objectID },
@@ -51,17 +65,16 @@ function Game(props) {
           )
         }
 
-        if (artist === true) {
+        if (newArr[0] === 'artist') {
           responseArr.push(
             { response: gameArray[currentIndex][0].artistDisplayName, id: gameArray[currentIndex][0].objectID },
             { response: gameArray[currentIndex][1].artistDisplayName, id: gameArray[currentIndex][1].objectID },
             { response: gameArray[currentIndex][2].artistDisplayName, id: gameArray[currentIndex][2].objectID },
             { response: gameArray[currentIndex][3].artistDisplayName, id: gameArray[currentIndex][3].objectID }
           )
-          console.log('Hit Artist If')
         }
 
-        if (date === true) {
+        if (newArr[0] === 'date') {
           responseArr.push(
             { response: gameArray[currentIndex][0].objectDate, id: gameArray[currentIndex][0].objectID },
             { response: gameArray[currentIndex][1].objectDate, id: gameArray[currentIndex][1].objectID },
@@ -73,7 +86,7 @@ function Game(props) {
         setAnswers({ responses: shuffledRes })
       }
     }
-  }, [category, page])
+  }, [category, questionType])
 
   function displayNextImage() {
     setPage({ currentIndex: page.currentIndex + 1 })
@@ -164,6 +177,7 @@ function Game(props) {
     })
     resetGame()
     profilePoints()
+    props.getUser()
     props.history.push('/homepage')
   };
 
@@ -191,6 +205,7 @@ function Game(props) {
       </div> : <>{category.isLoading ?
         <p>Loading...</p> : <div>
           <img className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture' />
+          <h1>{`Guess the ${questionType.newArr[0]} of this art.`}</h1>
           {multipleChoiceResponses}
         </div>
       }
@@ -203,5 +218,7 @@ function Game(props) {
     </div >
   )
 }
+const mapStateToProps = (reduxState) => reduxState
 
-export default withRouter(Game)
+
+export default withRouter(connect(mapStateToProps, { getUser })(Game))

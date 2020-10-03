@@ -396,5 +396,22 @@ const answerSelection = [
 //         //   }
 //         //   return newArr
 //         // };
+/*
+Use SASS properties to give all images same likeness.
+STEPS TO MAKING POP UP BOX
+XXDecide on box dimensions / Size
+xMake box appear
+xMake Nothing Appear behind box.
+Make box appear with dynamic information
+Cancel Button, That makes Box Dissappear
 
+Each Div<
+Game Category and Type
+Picture of game
+Information about each game
+Have play game button Link
+>
 
+Bonus - Area outside of box becomes gray
+Clicking outside of box closes the box.
+*/
