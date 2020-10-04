@@ -21,6 +21,32 @@ function Statistics(props) {
     title: 'title'
   })
 
+
+
+
+  useEffect(() => {
+    axios.get('/api/stats').then((res) => {
+      setStats({ responses: res.data, isLoading: true })
+    })
+
+  }, [])
+
+  useEffect(() => {
+    if (allStats.isLoading === true) {
+      getAverages()
+      if (props.isLoggedIn === true) {
+        getUserStats()
+
+      }
+    }
+  }, [allStats])
+
+  useEffect(() => {
+    if (allStats.isLoading === true) {
+      userAverage()
+    }
+  }, [userStats])
+
   function toggleUserGraphType(type) {
     if (userGraphKeys[type] === null) {
       setUserGraphKeys({
@@ -51,8 +77,8 @@ function Statistics(props) {
     console.log(obj[index])
   }
   function toggleAllCategories() {
-
   }
+
 
   function toggleAllGraphType(type) {
     if (allGraphKeys[type] === null) {
@@ -71,29 +97,6 @@ function Statistics(props) {
       })
     }
   }
-  useEffect(() => {
-    axios.get('/api/stats').then((res) => {
-      setStats({ responses: res.data, isLoading: true })
-    })
-
-  }, [])
-
-  console.log(userDataBank.dataArr)
-  useEffect(() => {
-    if (allStats.isLoading === true) {
-      getAverages()
-      if (props.isLoggedIn === true) {
-        getUserStats()
-
-      }
-    }
-  }, [allStats])
-
-  useEffect(() => {
-    if (allStats.isLoading === true) {
-      userAverage()
-    }
-  }, [userStats])
 
   function getUserStats() {
     const userArr = []
@@ -105,6 +108,10 @@ function Statistics(props) {
     })
     setUserStats({ responses: userArr })
 
+  }
+
+  function deleteUserStats() {
+    axios.delete('/api/stats')
   }
 
   function userAverage() {
@@ -449,6 +456,7 @@ function Statistics(props) {
     return (
       <div className='grandparent-statistics-container'>
         <div className='statistics-container'>
+          <button onClick={() => deleteUserStats()}>Delete stats.</button>
           <div>
             <button onClick={() => toggleUserGraphType('artist')}>Toggle Artist Game Type</button>
             <button onClick={() => toggleUserGraphType('title')}>Toggle Title Game Type</button>
