@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import arrowleft from '../../pictures/arrow-picture.jpg'
 
 function Dashboard() {
 
@@ -135,8 +136,10 @@ function Dashboard() {
       {box === true &&
         <div className='pop-up-game-box' >
           <div>
-            <button onClick={() => displayLastPicture()}> Back </button>
+            <button onClick={() => displayLastPicture()}>  </button>
+            <img className='left-arrow' />
             <img src={gameInfo.images[currentIndex.index]} alt={gameInfo.categoryName} />
+            <img src={'https://static.thenounproject.com/png/196764-200.png'} />
             <button onClick={() => displayNextPicture()}> Forward </button>
           </div>
           <p>{gameInfo.details}</p>
