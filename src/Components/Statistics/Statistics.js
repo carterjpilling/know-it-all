@@ -9,7 +9,11 @@ function Statistics(props) {
   const [allStats, setStats] = useState({ responses: [], isLoading: false })
   const [databank, setDatabank] = useState({ dataArr: [] })
   const [userStats, setUserStats] = useState({ responses: [] })
-  const [userDataBank, setUserDataBank] = useState({ dataArr: [] })
+  const [userDataBank, setUserDataBank] = useState({
+    dataArr: []
+
+  })
+  const [hiddenValues, setHiddenValues] = useState([])
   const [allGraphKeys, setAllGraphKeys] = useState({
     date: 'date',
     artist: 'artist',
@@ -65,17 +69,30 @@ function Statistics(props) {
     }
   }
   //toggleUserCategories is not functioning.
-  //0 American, 1. European, 2. Permanent. 3 All Displayed
-  function toggleUserCategories(index, cat) {
-    let obj = [{}, {}, {}, {}]
-    if (userDataBank.dataArr[index].category === cat) {
-      userDataBank.dataArr.splice(index, null, obj[index])
+  //0 American, 1. European, 2. Permanent
+
+  function toggleUserCategories(cat) {
+    let tempState = [...userDataBank.dataArr]
+    const index = tempState.findIndex(data => {
+      return data.category === cat
+    })
+    let hiddenState = [...hiddenValues]
+    if (index !== -1) {
+      let spliceObj = tempState.splice(index, 1)
+      hiddenState.push(...spliceObj)
     } else {
-      obj[index] = userDataBank.dataArr.splice(index, 1)
+      const hiddenIndex = hiddenState.findIndex(data => {
+        return data.category === cat
+      })
+      let spliceObj = hiddenState.splice(hiddenIndex, 1)
+      tempState.push(...spliceObj)
     }
-    console.log(userDataBank.dataArr.splice(index, 1))
-    console.log(obj[index])
+    tempState.sort((a, b) => a.category > b.category ? 1 : -1)
+    setUserDataBank({ ...userDataBank, dataArr: [...tempState] })
+    setHiddenValues([...hiddenState])
   }
+
+
   function toggleAllCategories() {
   }
 
@@ -233,17 +250,17 @@ function Statistics(props) {
     }
     setUserDataBank({
       dataArr: [
-        {
-          category: "General Art",
-          average: gameObject.disPoints.average,
-          gamesPlayed: gameObject.disPoints.length,
-          date: gameObject.dispDate.average,
-          dateGames: gameObject.dispDate.length,
-          artist: gameObject.dispArtist.average,
-          artistGames: gameObject.dispArtist.length,
-          title: gameObject.dispTitle.average,
-          titleGames: gameObject.dispTitle.length
-        },
+        // {
+        //   category: "General Art",
+        //   average: gameObject.disPoints.average,
+        //   gamesPlayed: gameObject.disPoints.length,
+        //   date: gameObject.dispDate.average,
+        //   dateGames: gameObject.dispDate.length,
+        //   artist: gameObject.dispArtist.average,
+        //   artistGames: gameObject.dispArtist.length,
+        //   title: gameObject.dispTitle.average,
+        //   titleGames: gameObject.dispTitle.length
+        // },
         {
           category: "American",
           average: gameObject.americPoints.average,
@@ -463,7 +480,7 @@ function Statistics(props) {
             <button onClick={() => toggleUserGraphType('date')}>Toggle Date Game Type</button>
           </div>
           <div>
-            <button onClick={() => toggleUserCategories(0, 'American', 'American')}>Toggle American Category</button>
+            <button onClick={() => toggleUserCategories('American')}>Toggle American Category</button>
           </div>
           <ResponsiveBar data={userDataBank.dataArr}
             keys={['average']}

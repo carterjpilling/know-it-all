@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import arrowleft from '../../pictures/arrow-picture.jpg'
 
 function Dashboard() {
 
@@ -117,20 +116,37 @@ function Dashboard() {
   return (
     <div className='dashboard-container'>
       <p>Click on an Image to Start a Game!</p>
+      <div className='art-bar'>
+        <p>art.</p>
+      </div>
       <div className='game-container'>
-        <div className='left-side-game-container'>
-          <img className='picture-container' src={'https://images.metmuseum.org/CRDImages/ep/original/DP145929.jpg'} alt='Renoir Painting' onClick={() => catInformationSwitcher('european')} />
-        </div>
-        <div className='right-side-game-container'>
-          <div className='right-top-container'>
-            <img src={'https://images.metmuseum.org/CRDImages/gr/original/DT6494.jpg'} alt='Art Painting' onClick={() => catInformationSwitcher('art')} />
-            <img src={'https://images.metmuseum.org/CRDImages/ep/original/DT46.jpg'} alt='Dancers Painting' onClick={() => catInformationSwitcher('paintings')} />
-          </div>
-          <div className='right-bottom-container'>
-            <img src={'https://images.metmuseum.org/CRDImages/ad/original/DP-15303-017.jpg'} alt='American Art Painting' onClick={() => catInformationSwitcher('american')} />
+        <div className='picture-box-container'>
+          <img className='category-picture' src={'https://images.metmuseum.org/CRDImages/ep/original/DP145929.jpg'} alt='Renoir Painting' onClick={() => catInformationSwitcher('european')} />
+          <h2>European Art</h2>
+          <p>The European Category features some of Europe's great painters including Vincent Van Gogh, Pierre-August Renoir, and Edgar Degas to name a few. The date of the collection ranges from the 14th century through the late 19th. Click Start below to test your knowledge of European Art!</p>
+          <div className='hidden-pop-up'>
+            <p>Play this game!</p>
+            <button>PLAY!</button>
           </div>
         </div>
-
+        <div className='picture-box-container'>
+          <img className='category-picture' src={'https://images.metmuseum.org/CRDImages/ep/original/DT46.jpg'} alt='Dancers Painting' onClick={() => catInformationSwitcher('paintings')} />
+          <h2>International Paintings</h2>
+          <p>Put your knowledge of Paintings to the test. American, French, Italian and other nationalities fill this category. See paintings from the modern, renaissance, baroque, and latest century.</p>
+          <div className='hidden-pop-up'>
+            <p>Play this game!</p>
+            <button>PLAY!</button>
+          </div>
+        </div>
+        <div className='picture-box-container'>
+          <img className='category-picture' src={'https://images.metmuseum.org/CRDImages/ad/original/DP-15303-017.jpg'} alt='American Art Painting' onClick={() => catInformationSwitcher('american')} />
+          <h2>American Paintings</h2>
+          <p>While American art might be relatively newer, it will certainly test your knowledge of the American continent's art.</p>
+          <div className='hidden-pop-up'>
+            <p>Play this game!</p>
+            <button>PLAY!</button>
+          </div>
+        </div>
       </div>
 
       {box === true &&

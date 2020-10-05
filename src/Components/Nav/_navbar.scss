@@ -1,9 +1,13 @@
 
 .nav-header{
-  background-color: grey;
+  background-color: white;
   display:flex;
   justify-content: space-evenly;
   align-items: center;
+  
+  .hamburger:hover{
+    cursor: pointer;
+  }
   div{
     display:flex;
     align-items: center;
@@ -11,7 +15,32 @@
       margin: 5px;
     }
     img{
-      width: 50px;
+      border: 2px solid;
+      border-radius: 10%;
+      max-width: 50px;
+      height: 50px;
+      
     }
   }
+}
+
+.hamburger-menu{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 2;
+  box-sizing: border-box;
+}
+.hamburger{
+  width: 25px;
+  position: relative;
+  top: 0;
+  left: 0;
 }

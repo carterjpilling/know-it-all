@@ -210,7 +210,7 @@ function Game(props) {
         </div>
       }
           <div>
-            {buttonEnabler === false ? null : <button onClick={() => { displayNextImage() }}>Next Question</button>}
+            {buttonEnabler === true ? null : <button onClick={() => { displayNextImage() }}>Next Question</button>}
             <h3>Points:{points.roundPoints}</h3>
             <p>Question {page.currentIndex + 1}/10</p>
 
