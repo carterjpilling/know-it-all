@@ -13,11 +13,19 @@ const initialState = {
 const LOGIN_USER = 'LOGIN_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
 const GET_USER = 'GET_USER'
+const ADD_POINTS = 'ADD_POINTS'
 
 export function loginUser(user) {
   return {
     type: LOGIN_USER,
     payload: user
+  }
+}
+
+export function addPoints(point) {
+  return {
+    type: ADD_POINTS,
+    payload: point
   }
 }
 
@@ -49,6 +57,8 @@ export default function (state = initialState, action) {
       return { ...state, user: action.payload.data, isLoggedIn: true }
     case GET_USER + '_REJECTED':
       return initialState
+    case ADD_POINTS:
+      return { ...state }
     default:
       return state
   }

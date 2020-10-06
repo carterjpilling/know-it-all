@@ -64,6 +64,10 @@ module.exports = {
   },
   getUser: async (req, res) => {
     if (req.session.user) {
+      const db = req.app.get('db')
+      const [existingUser] = await db.check_user([req.session.user.username])
+      delete existingUser.hash
+      req.session.user = existingUser
       res.status(200).send(req.session.user)
     } else {
       res.status(404).send('No session found.')

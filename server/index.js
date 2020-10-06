@@ -22,7 +22,6 @@ app.use(session({
 app.post('/api/auth/register', authCtrl.registerUser)
 app.post('/api/auth/login', authCtrl.loginUser)
 app.post('/api/auth/logout', authCtrl.logoutUser)
-app.get('/api/auth/me', authCtrl.getUser)
 
 //Profile Endpoints
 app.get('/api/profilepictures', profileCtrl.getProfilePictures)
@@ -40,6 +39,7 @@ app.get('/api/stats', statsCtrl.getAllStats)
 //Art Controller
 app.get('/api/art/:category', artCtrl.getArt)
 
+app.get('/api/auth/me', authCtrl.getUser)
 
 
 

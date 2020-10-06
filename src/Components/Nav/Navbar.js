@@ -20,6 +20,7 @@ function Nav(props) {
         props.history.push('/')
       })
     }
+    setMenu(false)
     console.log('Nice')
   }, [])
 
@@ -29,7 +30,7 @@ function Nav(props) {
       props.history.push('/')
       props.logoutUser()
     })
-
+    setMenu(false)
   }
 
   function toggleMenu() {

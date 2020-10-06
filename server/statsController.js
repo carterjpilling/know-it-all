@@ -6,13 +6,14 @@ const getTheStats = async (db) => {
 
 module.exports = {
   postStats: async (req, res) => {
+    console.log('hit stats')
     const db = req.app.get('db')
     const { id } = req.session.user
-    const { type_of_game, points_gained, genre, question_type } = req.body
+    const { type_of_game, points_gained, genre } = req.body
     const { catId } = genre
-    const { qID } = question_type
+    const question_type = 1
 
-    await db.post_stats([id, catId, points_gained, type_of_game, qID])
+    await db.post_stats([id, catId, points_gained, type_of_game, question_type])
 
     res.sendStatus(200)
   },

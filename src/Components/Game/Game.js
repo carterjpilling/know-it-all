@@ -36,6 +36,7 @@ function Game(props) {
   }
 
   useEffect(() => {
+    console.log(props.user.points)
     axios.get(`/api/art/${props.match.params.category}`).then((res) => {
       setPage({ currentIndex: 0 })
       setCategory((prevState) => {
@@ -105,11 +106,7 @@ function Game(props) {
     setPage({ currentIndex: 0 })
   }
 
-  function profilePoints() {
-    axios.put('/api/user/points', {
-      new_points: points.roundPoints
-    })
-  }
+
 
   function checkAnswer(ans) {
     if (ans === category.gameArray[page.currentIndex][0].objectID) {
@@ -121,7 +118,7 @@ function Game(props) {
   }
 
   function submitRound() {
-
+    console.log('hit submit')
     const EUROPEAN = 'european'
     const VAN_GOGH = 'van_gogh'
     const DISPLAYED_ART = 'displayed'
@@ -138,6 +135,7 @@ function Game(props) {
         catObj = { catId: 2 }
         break
       case PERMANENT_PAINTINGS:
+        console.log('hit switch')
         catObj = { catId: 3 }
         break
       case DISPLAYED_ART:
@@ -150,37 +148,23 @@ function Game(props) {
         return null
     }
 
-    const DATE = 'date'
-    const ARTIST = 'artist'
-    const TITLE = 'title'
 
-    let gameObj
 
-    switch (props.match.params.type) {
-      case DATE:
-        gameObj = { qID: 1 }
-        break
-      case ARTIST:
-        gameObj = { qID: 2 }
-        break
-      case TITLE:
-        gameObj = { qID: 3 }
-        break
-      default:
-        return null
-    }
     axios.post('/api/stats', {
       type_of_game: 2,
       points_gained: points.roundPoints,
-      genre: catObj,
-      question_type: gameObj
+      genre: catObj
+    }).then(() => {
+      axios.put('/api/user/points', {
+        new_points: points.roundPoints
+      })
+      props.getUser()
+      props.history.push('/homepage')
     })
+    console.log('hit post')
+    console.log('hit end of submit')
     resetGame()
-    profilePoints()
-    props.getUser()
-    props.history.push('/homepage')
   };
-
   const getShuffled = arr => {
     const newArr = arr.slice()
     for (let i = newArr.length - 1; i > 0; i--) {
@@ -210,7 +194,7 @@ function Game(props) {
         </div>
       }
           <div>
-            {buttonEnabler === true ? null : <button onClick={() => { displayNextImage() }}>Next Question</button>}
+            {buttonEnabler === true ? <button onClick={() => { displayNextImage() }}>Next Question</button> : null}
             <h3>Points:{points.roundPoints}</h3>
             <p>Question {page.currentIndex + 1}/10</p>
 

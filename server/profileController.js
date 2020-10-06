@@ -38,11 +38,8 @@ module.exports = {
     const db = req.app.get('db')
     const { new_points } = req.body
     const { id } = req.session.user
-
     req.session.user.points = (req.session.user.points + new_points)
-
     await db.add_points([new_points, id])
-
-    res.status(200)
+    res.status(200).send(req.session.user)
   }
 }
