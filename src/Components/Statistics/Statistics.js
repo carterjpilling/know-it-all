@@ -11,22 +11,9 @@ function Statistics(props) {
   const [userStats, setUserStats] = useState({ responses: [] })
   const [userDataBank, setUserDataBank] = useState({
     dataArr: []
-
   })
   const [hiddenValues, setHiddenValues] = useState([])
-  const [allGraphKeys, setAllGraphKeys] = useState({
-    date: 'date',
-    artist: 'artist',
-    title: 'title'
-  })
-  const [userGraphKeys, setUserGraphKeys] = useState({
-    date: 'date',
-    artist: 'artist',
-    title: 'title'
-  })
-
-
-
+  const [allHiddenValues, setAllHiddenValues] = useState([])
 
   useEffect(() => {
     axios.get('/api/stats').then((res) => {
@@ -51,25 +38,7 @@ function Statistics(props) {
     }
   }, [userStats])
 
-  function toggleUserGraphType(type) {
-    if (userGraphKeys[type] === null) {
-      setUserGraphKeys({
-        ...userGraphKeys,
-        [type]: type,
-        [type]: type,
-        [type]: type
-      })
-    } else {
-      setUserGraphKeys({
-        ...userGraphKeys,
-        [type]: null,
-        [type]: null,
-        [type]: null
-      })
-    }
-  }
-  //toggleUserCategories is not functioning.
-  //0 American, 1. European, 2. Permanent
+
 
   function toggleUserCategories(cat) {
     let tempState = [...userDataBank.dataArr]
@@ -92,27 +61,25 @@ function Statistics(props) {
     setHiddenValues([...hiddenState])
   }
 
-
-  function toggleAllCategories() {
-  }
-
-
-  function toggleAllGraphType(type) {
-    if (allGraphKeys[type] === null) {
-      setAllGraphKeys({
-        ...allGraphKeys,
-        [type]: type,
-        [type]: type,
-        [type]: type
-      })
+  function toggleAllCategories(cat) {
+    let tempState = [...databank.dataArr]
+    const index = tempState.findIndex(data => {
+      return data.category === cat
+    })
+    let hiddenState = [...allHiddenValues]
+    if (index !== -1) {
+      let spliceObj = tempState.splice(index, 1)
+      hiddenState.push(...spliceObj)
     } else {
-      setAllGraphKeys({
-        ...allGraphKeys,
-        [type]: null,
-        [type]: null,
-        [type]: null
+      const hiddenIndex = hiddenState.findIndex(data => {
+        return data.category === cat
       })
+      let spliceObj = hiddenState.splice(hiddenIndex, 1)
+      tempState.push(...spliceObj)
     }
+    tempState.sort((a, b) => a.category > b.category ? 1 : -1)
+    setDatabank({ ...userDataBank, dataArr: [...tempState] })
+    setAllHiddenValues([...hiddenState])
   }
 
   function getUserStats() {
@@ -285,7 +252,7 @@ function Statistics(props) {
           titleGames: gameObject.euroTitle.length
         },
         {
-          category: "General Paintings",
+          category: "Paintings",
           average: gameObject.permPoints.average,
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
@@ -420,17 +387,17 @@ function Statistics(props) {
     }
     setDatabank({
       dataArr: [
-        {
-          category: "General Art",
-          average: gameObject.disPoints.average,
-          gamesPlayed: gameObject.disPoints.length,
-          date: gameObject.dispDate.average,
-          dateGames: gameObject.dispDate.length,
-          artist: gameObject.dispArtist.average,
-          artistGames: gameObject.dispArtist.length,
-          title: gameObject.dispTitle.average,
-          titleGames: gameObject.dispTitle.length
-        },
+        // {
+        //   category: "General Art",
+        //   average: gameObject.disPoints.average,
+        //   gamesPlayed: gameObject.disPoints.length,
+        //   date: gameObject.dispDate.average,
+        //   dateGames: gameObject.dispDate.length,
+        //   artist: gameObject.dispArtist.average,
+        //   artistGames: gameObject.dispArtist.length,
+        //   title: gameObject.dispTitle.average,
+        //   titleGames: gameObject.dispTitle.length
+        // },
         {
           category: "American",
           average: gameObject.americPoints.average,
@@ -455,7 +422,7 @@ function Statistics(props) {
           titleGames: gameObject.euroTitle.length
         },
         {
-          category: "General Paintings",
+          category: "Paintings",
           average: gameObject.permPoints.average,
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
@@ -475,12 +442,9 @@ function Statistics(props) {
         <div className='statistics-container'>
           <button onClick={() => deleteUserStats()}>Delete stats.</button>
           <div>
-            <button onClick={() => toggleUserGraphType('artist')}>Toggle Artist Game Type</button>
-            <button onClick={() => toggleUserGraphType('title')}>Toggle Title Game Type</button>
-            <button onClick={() => toggleUserGraphType('date')}>Toggle Date Game Type</button>
-          </div>
-          <div>
             <button onClick={() => toggleUserCategories('American')}>Toggle American Category</button>
+            <button onClick={() => toggleUserCategories('European')}>Toggle European Category</button>
+            <button onClick={() => toggleUserCategories('American')}>Toggle Paintings Category</button>
           </div>
           <ResponsiveBar data={userDataBank.dataArr}
             keys={['average']}
@@ -523,11 +487,11 @@ function Statistics(props) {
           />
         </div>
         <div className='statistics-container'>
-          {/* <div>
-            <button onClick={() => toggleAllGraphType('artist')}>Toggle Artist Game Type</button>
-            <button onClick={() => toggleAllGraphType('title')}>Toggle Title Game Type</button>
-            <button onClick={() => toggleAllGraphType('date')}>Toggle Date Game Type</button>
-          </div> */}
+          <div>
+            <button onClick={() => toggleAllCategories('American')}>Toggle American Category</button>
+            <button onClick={() => toggleAllCategories('European')}>Toggle European Category</button>
+            <button onClick={() => toggleAllCategories('American')}>Toggle Paintings Category</button>
+          </div>
           <ResponsiveBar data={databank.dataArr}
             keys={['average']}
             indexBy="category"

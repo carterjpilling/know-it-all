@@ -15,6 +15,9 @@
   object-fit: cover;
   width:300px;
   height:400px;
+  
+  
+  // display: none;
 }
 
 %game-container{
@@ -22,9 +25,12 @@
   height: 400px;
   width: 300px;
   display: flex;
-  flex-direction: column;
   align-content: center;
+  display: inline-block;
+  @include flex(column, center, center); 
+  // overflow: hidden;
   h2{
+    position: relative;
     align-self: center;
     margin: 5px;
   }
@@ -42,7 +48,15 @@
 }
 
 .category-picture{
-@extend %category-picture;
+  // border-radius: 5%;
+  transition: all .4s ease-out;
+  @extend %category-picture;
+}
+.category-picture:hover{
+  transform: scale(1.2);
+  transition: all .4s ease;
+  vertical-align: middle;
+  
 }
 
 .hidden-pop-up{
@@ -58,6 +72,7 @@
   color: white;
   opacity: 0;
   transition: all 0.5s;
+  z-index: 0;
   background-color: rgba(0, 0, 0, 0.85);
   &:hover{
 opacity: 100;
@@ -96,7 +111,7 @@ opacity: 100;
 
   align-self: center;
   width: 90%;
-  height: 60vh;
+  // height: 60vh;
   box-sizing: border-box;
   justify-content: space-evenly;
 }
@@ -135,6 +150,7 @@ opacity: 100;
 @media only screen and (max-width:1050px){
   %game-container{
     width: 200px;
+    border-radius: 5%;
   }
 }
 
