@@ -1,0 +1,152 @@
+@import '../../variables';
+
+.game-body{
+  @include flex(column, center, center);
+  width: 100%;
+  height: 100%;
+}
+
+.game-game-container{
+  @include flex(column, center,center);
+  width: 60%;
+  margin: 5px;
+  box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
+  margin-bottom: 200px;
+}
+
+.game-picture-container{
+  @include flex(column, center, center);
+  width: 500px;
+  height: 400px;
+  position: relative;
+  top: 5px;
+  .first-picture{
+    width: 250px;
+    max-width: 500px;
+    max-height: 400px;
+    position: relative;
+    box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
+  }
+}
+
+.game-next-button{
+  outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin: 5px;
+  padding: 10px;
+  background: none;
+}
+
+.game-next-button:hover,
+.game-next-button:focus{
+  box-shadow: inset 200px 0 0 0 var(--hover);
+    cursor: pointer;
+}
+.game-button{
+  
+}
+
+.game-button-information-container{
+  @include flex(column, center, center);
+}
+
+
+
+.correct-answer{
+  transition: all 1s;
+  background:green; 
+  outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.incorrect-answer{
+  outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin: 5px;
+  padding: 10px;
+  background: none;
+  transition: 0.5s;
+
+}
+$colors: (
+  incorrect-answer: #a972cb,
+  game-go-home-button: #ef6eae, 
+  game-play-again-button: #ef6eae, 
+  game-next-button: #ff7f82, 
+  // game-go-home-button: #ffa260, 
+  up: #e4cb58, 
+  // game-next-button: #8fc866, 
+  offset: #19bc8b
+);
+
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 15deg)};
+  }
+}
+.incorrect-answer:hover,
+.incorrect-answer:focus{
+  box-shadow: inset 0 0 0 2em var(--hover);
+  cursor: pointer;
+}
+.game-go-home-button:hover,
+.game-go-home-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+  transform: translateY(-0.25em);
+  cursor: pointer;
+}
+
+.game-play-again-button:hover,
+.game-play-again-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+  transform: translateY(-0.25em);
+  cursor: pointer;
+}
+.game-end-round-slide{
+  width: 350px;
+  height: 200px;
+  margin-top: 50px;
+  @include flex(column, center, center);
+  box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
+  .game-go-home-button{
+    outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin: 5px;
+  padding: 10px;
+  background: none;
+  transition: 0.5s;
+  }
+  .game-play-again-button{
+    outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin: 5px;
+  padding: 10px;
+  background: none;
+  transition: 0.5s;
+  }
+}
+
+.game-body{
+  button {  
+  color: var(--color);
+  transition: 1s;
+  
+  &:hover,
+  &:focus { 
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+}

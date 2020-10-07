@@ -3,7 +3,7 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getUser } from '../../reducks/authReducer'
-import './Game.css'
+import PropagateLoader from 'react-spinners/PropagateLoader'
 
 function Game(props) {
 
@@ -11,16 +11,12 @@ function Game(props) {
     gameArray: [],
     isLoading: true
   })
-
   const [page, setPage] = useState({ currentIndex: 0, })
-
   const [answers, setAnswers] = useState({ responses: [] })
-
   const [points, setPoints] = useState({ roundPoints: 0 })
-
   const [buttonEnabler, setButtonEnabler] = useState(false)
-
   const [questionType, setQuestionType] = useState([])
+  const [imgLoaded, setImgLoaded] = useState(false)
 
   useEffect(() => {
 
@@ -117,6 +113,17 @@ function Game(props) {
     setButtonEnabler(true)
   }
 
+  function handlerFunctionNext() {
+    setImgLoaded(false)
+    displayNextImage()
+  }
+
+  function playAgain() {
+    submitRound()
+    props.history.push(`/game/${props.match.params}`)
+
+  }
+
   function submitRound() {
     console.log('hit submit')
     const EUROPEAN = 'european'
@@ -161,8 +168,6 @@ function Game(props) {
       props.getUser()
       props.history.push('/homepage')
     })
-    console.log('hit post')
-    console.log('hit end of submit')
     resetGame()
   };
   const getShuffled = arr => {
@@ -176,29 +181,41 @@ function Game(props) {
 
   const multipleChoiceResponses = answers.responses.map((element, index) => {
     return (
-      <div key={index}>
+      <div className='game-button-container' key={index}>
         <button onClick={() => checkAnswer(element.id)} disabled={buttonEnabler} className={category.gameArray[page.currentIndex] && element.id === category.gameArray[page.currentIndex][0].objectID && buttonEnabler === true ? 'correct-answer' : 'incorrect-answer'}>{element.response}</button>
       </div>
     )
   });
 
   return (
-    <div>
-      {page.currentIndex === 10 ? <div>
-        <button onClick={() => submitRound()}>Submit Round</button>
+    <div className='game-body'>
+      {page.currentIndex === 10 ? <div className='game-end-round-slide'>
+        <p>Congratulations! <br /> You've earned {points.roundPoints} points!</p>
+        <button className='game-play-again-button' onClick={() => playAgain()}>Play Again</button>
+        <button className='game-go-home-button' onClick={() => submitRound()}>Go Home</button>
       </div> : <>{category.isLoading ?
-        <p>Loading...</p> : <div>
-          <img className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture' />
-          <h1>{`Guess the ${questionType.newArr[0]} of this art.`}</h1>
-          {multipleChoiceResponses}
-        </div>
-      }
-          <div>
-            {buttonEnabler === true ? <button onClick={() => { displayNextImage() }}>Next Question</button> : null}
+        <p>Loading...</p> : <div className='game-game-container'>
+          <div className='game-picture-container'>
+            {imgLoaded === false ?
+              <PropagateLoader
+              /> : null
+            }
+
+            <img onLoad={() => setImgLoaded(true)} className='first-picture' src={category.gameArray[page.currentIndex][0].primaryImage} alt='first_picture'
+              style={{
+                display: !imgLoaded ? 'none' : undefined
+              }}
+            />
+          </div>
+          <div className='game-button-information-container'>
+            <h1>{`Guess the ${questionType.newArr[0]} of this art.`}</h1>
+            {multipleChoiceResponses}
+            {buttonEnabler === true ? <button className='game-next-button' onClick={() => { handlerFunctionNext() }}>Next Question</button> : null}
             <h3>Points:{points.roundPoints}</h3>
             <p>Question {page.currentIndex + 1}/10</p>
-
-          </div></>}
+          </div>
+        </div>
+      }</>}
     </div >
   )
 }

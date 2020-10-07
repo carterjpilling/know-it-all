@@ -23,9 +23,7 @@
   display: inline-block;
 }
 
-%game-container:hover .hidden-pop-up{
-  cursor: pointer;
-}
+
 .picture-box-container{
   // @extend %game-container;
   @include flex(column, center,initial);
@@ -81,7 +79,6 @@
   align-content: center;
   justify-content: initial;
   align-self: center;
-  
   width: 90%;
   height: 50px;
   margin-bottom: 25px;
