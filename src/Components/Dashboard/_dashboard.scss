@@ -59,15 +59,16 @@
     position: absolute;
     align-self: center;
     text-align: center;
-    background-color: blue;
+    background-color: #f5b4e6a9;
     border-radius: 5%;
     cursor: pointer;
-    z-index: 99;
+    z-index: 2;
     width: 70%;
   }
 }
 .image-wrapper:hover::before{
   opacity: 100;
+  z-index: 2;
 }
 
 .image-wrapper:hover{
@@ -81,9 +82,15 @@
   align-self: center;
   width: 90%;
   height: 50px;
-  margin-bottom: 25px;
-  border: 2px solid;
-  background-color: white;
+  margin-bottom: 50px;
+  // border: 2px solid;
+  background-color: #bdbfca65;
+  margin-top: 10px;
+}
+
+.art-bar-two{
+@extend .art-bar;
+margin-top:50px;
 }
 
 .game-container{
@@ -155,3 +162,32 @@
   }
 }
 
+@media only screen and (max-width:450px){
+  %game-container{
+    width: 250px;
+    height: 300px;
+    justify-content: center;
+    @include flex(column, center,center);
+  }
+  %category-picture{
+    width: 250px;
+    height: 300px;
+  }
+  .image-wrapper{
+    width: 250px;
+    height: 300px;
+  }
+  .game-container{
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  .picture-box-container{
+    margin-bottom: 25px;
+    h2{
+      margin-top: 5px;
+    }
+  }
+
+}

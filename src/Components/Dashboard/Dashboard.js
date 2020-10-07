@@ -17,7 +17,7 @@ function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='art-bar'>
-        <p>know.it_all</p>
+        <p></p>
       </div>
       <div className='game-container'>
         <div className='picture-box-container'>
@@ -46,6 +46,9 @@ function Dashboard(props) {
           </Link>
           <h2>American Art</h2>
         </div>
+      </div>
+      <div className='art-bar-two'>
+        <p></p>
       </div>
     </div>
 

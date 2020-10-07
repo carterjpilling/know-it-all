@@ -40,30 +40,73 @@ function Nav(props) {
 
   if (props.location.pathname !== '/') {
     return (
-      <div>
-        <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
-        <header className='nav-header'>
-          {/* <Link to='/'>Login Page</Link> */}
+      <div className='nav-header'>
+        <div className='hamburger-container'>
+          <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
+        </div>
+        <div className='nav-title'>Know It All</div>
+
+        {/* <Link to='/'>Login Page</Link> */}
 
 
 
 
-          <div>
-            <p>{props.user.points}</p>
-            <p>{props.user.username}</p>
+        <div className='nav-profile-container'>
+          <p>{props.user.points} Points</p>
+          {/* <p>{props.user.username}</p> */}
+          <div className='nav-prof-image-container'>
             <img className='img-profile-picture' src={props.user.profile_picture} alt={'user profile'} />
           </div>
-        </header>
-        {menu === false ? null : <div className='hamburger-menu'>
-          <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
-          <Link onClick={() => toggleMenu()} to='/homepage'><MdHome />Home</Link>
-          <div>
+        </div>
 
-            <GiPerspectiveDiceSixFacesRandom /> <button>Random Game</button>
+        {menu === false ? null : <div className='hamburger-menu'>
+          <div className='nav-dropdown-hamburger-div'>
+            <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
           </div>
-          <Link onClick={() => toggleMenu()} to='/profile/statistics'><AiOutlineBarChart />Stats</Link>
-          <Link onClick={() => toggleMenu()} to='/profile'><CgProfile />Profile</Link>
-          <button onClick={() => triggerLogout()}> <GoSignOut />Signout</button>
+          <li className='nav-menu-button-container'>
+            <Link className='nav-links' onClick={() => toggleMenu()} to='/homepage'>
+              <div className='nav-homepage-button'>
+                <MdHome />
+                <p>
+                  Home
+                </p>
+              </div>
+            </Link>
+            <Link className='nav-links'>
+              <div className='nav-homepage-button'>
+                <GiPerspectiveDiceSixFacesRandom />
+                <p>
+                  Random Game
+                </p>
+              </div >
+            </Link>
+            <Link className='nav-links' onClick={() => toggleMenu()} to='/profile/statistics'>
+              <div className='nav-homepage-button'>
+                <AiOutlineBarChart />
+                <p>
+                  Stats
+                </p>
+              </div>
+            </Link>
+
+            <Link className='nav-links' onClick={() => toggleMenu()} to='/profile'>
+              <div className='nav-homepage-button'>
+                <CgProfile />
+                <p>
+                  Profile
+                  </p>
+              </div>
+            </Link>
+
+            <Link className='nav-links' onClick={() => triggerLogout()}>
+              <div className='nav-homepage-button'>
+                <GoSignOut />
+                <p>
+                  Signout
+                </p>
+              </div>
+            </Link>
+          </li>
         </div>}
       </div>
     )
