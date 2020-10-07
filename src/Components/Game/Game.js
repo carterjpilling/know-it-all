@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getUser } from '../../reducks/authReducer'
 import PropagateLoader from 'react-spinners/PropagateLoader'
+import RingLoader from 'react-spinners/RingLoader'
 
 function Game(props) {
 
@@ -191,11 +192,15 @@ function Game(props) {
   return (
     <div className='game-body'>
       {page.currentIndex === 10 ? <div className='game-end-round-slide'>
-        <p>Congratulations! <br /> You've earned {points.roundPoints} points!</p>
+        <p>Congratulations! You've earned {points.roundPoints} points!</p>
         <button className='game-play-again-button' onClick={() => submitRound(false)}>Play Again</button>
         <button className='game-go-home-button' onClick={() => submitRound(true)}>Go Home</button>
       </div> : <>{category.isLoading ?
-        <p>Loading...</p> : <div className='game-game-container'>
+        <div className='ring-loader'><RingLoader className='ring-loader'
+        // css={override}
+        // color={#D5959E}
+
+        /></div> : <div className='game-game-container'>
           <div className='game-picture-container'>
             {imgLoaded === false ?
               <PropagateLoader

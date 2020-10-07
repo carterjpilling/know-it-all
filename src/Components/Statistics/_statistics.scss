@@ -1,0 +1,54 @@
+@import '../../variables';
+
+.grandparent-statistics-container{
+  @include flex(row, center,center);
+  height: 600px;
+  width: 100%;
+  // background-color: pink;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.stats-graph{
+  height: 500px;
+  border: 2px solid;
+  margin-top: 10px;
+  width: 400px;
+}
+.statistics-container-one{
+  @include flex(column, center, center);
+  margin: 10px;
+  position: relative;
+  height: 100%;
+  // background-color: $primary;
+}
+
+.statistics-container-two{
+  @include flex(column, center, center);
+  margin: 10px;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  // background-color: blue;
+}
+
+.delete-stats-button{
+  position: fixed;
+  bottom: 0;
+  margin: auto;
+}
+@media screen and (max-width:900px){
+  .grandparent-statistics-container{
+    position: relative;
+    @include flex (column,center,center);
+    height:1300px;
+  }
+.stats-graph{
+  width: 250px;
+}
+.statistics-container-one{
+  width: 250px;
+}
+
+
+}

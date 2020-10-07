@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { ResponsiveBar } from '@nivo/bar'
-import './Statistics.css'
+// import './Statistics.css'
 
 
 function Statistics(props) {
@@ -95,7 +95,13 @@ function Statistics(props) {
   }
 
   function deleteUserStats() {
-    axios.delete('/api/stats')
+    let txt
+    if (window.confirm("Are you sure that you want to delete your game history?")) {
+      txt = 'Your games have been deleted';
+      axios.delete('/api/stats')
+    } else {
+      txt = 'You did not delete your game history';
+    }
   }
 
   function userAverage() {
@@ -230,7 +236,7 @@ function Statistics(props) {
         // },
         {
           category: "American",
-          average: gameObject.americPoints.average,
+          AverageScore: gameObject.americPoints.average.toFixed(2),
           gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
@@ -242,7 +248,7 @@ function Statistics(props) {
         },
         {
           category: "European",
-          average: gameObject.euroPoints.average,
+          AverageScore: gameObject.euroPoints.average.toFixed(2),
           gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
@@ -253,7 +259,7 @@ function Statistics(props) {
         },
         {
           category: "Paintings",
-          average: gameObject.permPoints.average,
+          AverageScore: gameObject.permPoints.average.toFixed(2),
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
@@ -400,7 +406,7 @@ function Statistics(props) {
         // },
         {
           category: "American",
-          average: gameObject.americPoints.average,
+          AverageScore: gameObject.americPoints.average.toFixed(2),
           gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
@@ -412,7 +418,7 @@ function Statistics(props) {
         },
         {
           category: "European",
-          average: gameObject.euroPoints.average,
+          AverageScore: gameObject.euroPoints.average.toFixed(2),
           gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
@@ -423,7 +429,7 @@ function Statistics(props) {
         },
         {
           category: "Paintings",
-          average: gameObject.permPoints.average,
+          AverageScore: gameObject.permPoints.average.toFixed(2),
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
@@ -439,131 +445,101 @@ function Statistics(props) {
   if (allStats.isLoading === true) {
     return (
       <div className='grandparent-statistics-container'>
-        <div className='statistics-container'>
-          <button onClick={() => deleteUserStats()}>Delete stats.</button>
-          <div>
+        <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete stats.</button>
+        <div className='statistics-container-one'>
+          <div >
             <button onClick={() => toggleUserCategories('American')}>Toggle American Category</button>
             <button onClick={() => toggleUserCategories('European')}>Toggle European Category</button>
-            <button onClick={() => toggleUserCategories('American')}>Toggle Paintings Category</button>
+            <button onClick={() => toggleUserCategories('Paintings')}>Toggle Paintings Category</button>
           </div>
-          <ResponsiveBar data={userDataBank.dataArr}
-            keys={['average']}
-            indexBy="category"
-            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-            padding={0.3}
-            colors={{ scheme: 'category10' }}
-            colorBy="index"
-            defs={[
+          <div className='stats-graph'>
+            <ResponsiveBar data={userDataBank.dataArr}
+              keys={['AverageScore']}
+              indexBy="category"
+              margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
+              padding={0.3}
+              colors={{ scheme: 'set2' }}
+              colorBy="index"
+              defs={[
 
-            ]}
-            borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Category',
-              legendPosition: 'middle',
-              legendOffset: 32
-            }}
-            axisLeft={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Average Score',
-              legendPosition: 'middle',
-              legendOffset: -40
-            }}
-            labelSkipWidth={12}
-            labelSkipHeight={12}
-            labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            legends={[
+              ]}
+              borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'Category',
+                legendPosition: 'middle',
+                legendOffset: 32
+              }}
+              axisLeft={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'Average Score',
+                legendPosition: 'middle',
+                legendOffset: -40
+              }}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              legends={[
 
-            ]}
-            animate={true}
-            motionStiffness={90}
-            motionDamping={15}
-          />
+              ]}
+              animate={true}
+              motionStiffness={90}
+              motionDamping={15}
+            /></div>
         </div>
-        <div className='statistics-container'>
+        <div className='statistics-container-two'>
           <div>
             <button onClick={() => toggleAllCategories('American')}>Toggle American Category</button>
             <button onClick={() => toggleAllCategories('European')}>Toggle European Category</button>
-            <button onClick={() => toggleAllCategories('American')}>Toggle Paintings Category</button>
+            <button onClick={() => toggleAllCategories('Paintings')}>Toggle Paintings Category</button>
           </div>
-          <ResponsiveBar data={databank.dataArr}
-            keys={['average']}
-            indexBy="category"
-            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-            padding={0.3}
-            colors={{ scheme: 'category10' }}
-            colorBy="index"
-            defs={[
-              {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: '#38bcb2',
-                size: 4,
-                padding: 1,
-                stagger: true
-              },
-              {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: '#eed312',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-              }
-            ]}
-            fill={[
-              {
-                match: {
-                  id: 'fries'
-                },
-                id: 'dots'
-              },
-              {
-                match: {
-                  id: 'sandwich'
-                },
-                id: 'lines'
-              }
-            ]}
-            borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Category',
-              legendPosition: 'middle',
-              legendOffset: 32
-            }}
-            axisLeft={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Average Score',
-              legendPosition: 'middle',
-              legendOffset: -40
-            }}
-            labelSkipWidth={12}
-            labelSkipHeight={12}
-            labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            legends={[
+          <div className='stats-graph'>
+            <ResponsiveBar data={databank.dataArr}
+              keys={['AverageScore']}
+              indexBy="category"
+              margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
+              padding={0.3}
+              colors={{ scheme: 'set2' }}
+              colorBy="index"
+              defs={[]}
+              fill={[]}
+              borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'Category',
+                legendPosition: 'middle',
+                legendOffset: 32
+              }}
+              axisLeft={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'Average Score',
+                legendPosition: 'middle',
+                legendOffset: -40
+              }}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              legends={[
 
-            ]}
-            animate={true}
-            motionStiffness={90}
-            motionDamping={15}
-          />
+              ]}
+              animate={true}
+              motionStiffness={90}
+              motionDamping={15}
+            /></div>
         </div>
-      </div>
+      </div >
     )
   } else {
     return <div>Loading...</div>

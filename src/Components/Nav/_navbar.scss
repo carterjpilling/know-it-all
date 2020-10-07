@@ -84,7 +84,7 @@
   // border: 2px solid;
   @include flex(column, space-evenly,initial);
 
-  margin-top: 5px;
+  // margin-top: 5px;
   height:100%;
 }
 .hamburger-menu{
@@ -93,7 +93,7 @@
   top: 0;
   left: 0;
   width: 200px;
-  height: 300px;
+  height: 280px;
   background-color: white;
   box-shadow: .5px .5px 2px 0px rgba(125,125,125,1);
   border: 2px solid;
@@ -156,10 +156,12 @@
 }
 
 
-@media screen and (max-width:550px){}
-.nav-title{
-  margin-left: 10px;
-  font-size: 45px;
+@media screen and (max-width:550px){
+
+  .nav-title{
+    margin-left: 10px;
+    font-size: 45px;
+  }
 }
 
 @media screen and (max-width:415px){}
