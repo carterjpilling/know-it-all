@@ -118,13 +118,9 @@ function Game(props) {
     displayNextImage()
   }
 
-  function playAgain() {
-    submitRound()
-    props.history.push(`/game/${props.match.params}`)
 
-  }
 
-  function submitRound() {
+  function submitRound(boo) {
     console.log('hit submit')
     const EUROPEAN = 'european'
     const VAN_GOGH = 'van_gogh'
@@ -166,10 +162,15 @@ function Game(props) {
         new_points: points.roundPoints
       })
       props.getUser()
-      props.history.push('/homepage')
+      if (boo === true) {
+        props.history.push('/homepage')
+      } else {
+        window.location.reload()
+      }
     })
     resetGame()
   };
+
   const getShuffled = arr => {
     const newArr = arr.slice()
     for (let i = newArr.length - 1; i > 0; i--) {
@@ -191,8 +192,8 @@ function Game(props) {
     <div className='game-body'>
       {page.currentIndex === 10 ? <div className='game-end-round-slide'>
         <p>Congratulations! <br /> You've earned {points.roundPoints} points!</p>
-        <button className='game-play-again-button' onClick={() => playAgain()}>Play Again</button>
-        <button className='game-go-home-button' onClick={() => submitRound()}>Go Home</button>
+        <button className='game-play-again-button' onClick={() => submitRound(false)}>Play Again</button>
+        <button className='game-go-home-button' onClick={() => submitRound(true)}>Go Home</button>
       </div> : <>{category.isLoading ?
         <p>Loading...</p> : <div className='game-game-container'>
           <div className='game-picture-container'>

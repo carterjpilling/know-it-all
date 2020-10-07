@@ -20,42 +20,43 @@
     cursor: pointer;
   }
 }
-    .nav-profile-container{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 55px;
-      width: 15%;
-      box-sizing: border-box;
-      // background-color: blue;
-      p{
-        margin: 15px;
-      }
-    }
+
+.nav-profile-container{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 55px;
+  width: 300px;
+  box-sizing: border-box;
+  p{
+    font-weight: 700;
+    color: #D5959E;
+    text-shadow: 1px 1px #F9FAF9;
+    margin: 15px;
+  }
+}
 .nav-prof-image-container{
-          background-color: blue;
-          margin-right: 5px;
-          height: 55px;
-          width: 50px;
-          overflow: hidden;
-          border: 2px solid;
-          border-radius: 10%;
-          box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
-          img
-          {
-            transition: all .4s ease-out;
-            position: relative;
-            right: 2%;
-            height: 50px;
-            
-          }
-          img:hover{
-            cursor: pointer;
-            transform: scale(1.2);
-            transition: all .4s ease;
-            vertical-align: middle;
-          }
-        }
+  @include flex (row, center,center);
+  margin-right: 5px;
+  height: 55px;
+  width: 50px;
+  overflow: hidden;
+  border: 2px solid;
+  border-radius: 10%;
+  box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
+  img
+  {
+    transition: all .4s ease-out;
+    height: 50px;
+    
+  }
+  img:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: all .4s ease;
+    vertical-align: middle;
+  }
+}
 
 .nav-dropdown-hamburger-div{
   @include flex(row, initial,center);
@@ -70,8 +71,10 @@
 .nav-title{
   @include flex(row, initial,center);
   font-size: 60px;
-  font-weight: 500;
+  font-weight: 600;
   height: 55px;
+  color: #C68536;
+  text-shadow: 1px 1px #D5959E;
   width: 100%;
 }
 
@@ -152,22 +155,34 @@
 
 }
 
+
+@media screen and (max-width:550px){}
+.nav-title{
+  margin-left: 10px;
+  font-size: 45px;
+}
+
+@media screen and (max-width:415px){}
+.nav-title{
+  margin-left: 10px;
+  font-size: 25px;
+}
+
 @media screen and (max-width:800px){
   .nav-header{
     display: flex;
     // justify-content: space-between;
   }
   .nav-title{
-    background-color: pink;
-    width: 10%;
+    width: 100%;
   }
   .nav-profile-container{
-    width: 500px;
-    background-color: cyan;
+    width: 300px;
   }
 .nav-prof-image-container{
-                              width: 200px;
- background-color: pink;
-img{width: 50px;}
+ height: 55px;
+ width: 50px;
+ @include flex(column,center,center);
+// img{width: 50px;}
                           }
 }
