@@ -53,6 +53,8 @@
   border-radius: 5%;
   &::before{
     content:'Play Game';
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 500;
     color: white;
     transition: all .5s;
     padding: 20px;
@@ -114,13 +116,12 @@
 .art-bar{
   display: flex;
   align-content: center;
-  justify-content: initial;
+  justify-content: center;
   align-self: center;
   width: 90%;
+  font-family: 'M PLUS 1p', sans-serif;
+  font-weight: 500;
   height: 50px;
-  // margin-bottom: 50px;
-  // border: 2px solid;
-  // background-color: #7c26297a;
   margin-top: 10px;
 }
 
@@ -167,6 +168,10 @@ margin-top:50px;
     width: 250px;
     height: 350px;
   }
+  .fake-image-wrapper{
+    width: 250px;
+    height: 350px;
+  }
 }
 
 @media only screen and (max-width:850px){
@@ -181,6 +186,10 @@ margin-top:50px;
     height: 400px;
   }
   .image-wrapper{
+    width: 350px;
+    height: 400px;
+  }
+  .fake-image-wrapper{
     width: 350px;
     height: 400px;
   }
@@ -210,6 +219,10 @@ margin-top:50px;
     height: 300px;
   }
   .image-wrapper{
+    width: 250px;
+    height: 300px;
+  }
+  .fake-image-wrapper{
     width: 250px;
     height: 300px;
   }

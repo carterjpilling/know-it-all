@@ -1,0 +1,33 @@
+@import '../../variables';
+
+.login-div{
+  @include flex (row, center, center);
+  button{
+    outline: none;
+    border: 1px solid black;
+    border-radius: 8%;
+    background: none;
+    padding: 5px;
+    width: 60px;
+    box-sizing: border-box;
+  };
+  padding:5px;
+}
+
+.login-form{
+  @include flex (row, center, center);
+  margin-right: 10px;
+  input{
+    margin: 2.5px;
+  }
+}
+
+@media only screen and (max-width:505px){
+.login-form{
+  input{
+    @include flex(column,center,center);
+    width: 60px;
+  }
+}
+}
+

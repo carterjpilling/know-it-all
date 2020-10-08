@@ -40,8 +40,8 @@ function Login(props) {
   }
 
   return (
-    <div>
-      <form>
+    <div className='login-div'>
+      <form className='login-form'>
         <input
           type='text'
           name='username'
@@ -58,17 +58,17 @@ function Login(props) {
           onChange={handleChange}
         />
 
-        <input
+        {/* <input
           type='text'
           name='email'
           value={email}
           onChange={handleChange}
-          placeholder='Email' />
+          placeholder='Email' /> */}
 
       </form>
       <button onClick={() => { handleLogin() }} >Login</button>
-      <button onClick={() => { handleRegister() }}>Register</button>
-      <button onClick={() => { handleLogout() }}>Logout</button>
+      {/* <button onClick={() => { handleRegister() }}>Register</button> */}
+      {/* <button onClick={() => { handleLogout() }}>Logout</button> */}
     </div>
   )
 }

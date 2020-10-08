@@ -5,6 +5,12 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 
 function Profile(props) {
+  axios.get('/api/auth/me').then().catch(() => {
+    props.history.push('/homepage')
+  })
+
+
+
   const [state, setState] = useState({
     profile_pictures: [],
     titles: []

@@ -2,7 +2,6 @@
 
 .nav-header{
   position: relative;
-  // border: 3px solid;
   top: 0;
   z-index: 2;
   background-color: white;
@@ -14,8 +13,6 @@
   padding: 5px;
   height: 65px;
   box-sizing: border-box;
-  // margin-bottom: ;
-  
   .hamburger:hover{
     cursor: pointer;
   }
@@ -25,15 +22,29 @@
   display:flex;
   align-items: center;
   justify-content: flex-end;
+  align-content: center;
   height: 55px;
   width: 300px;
   box-sizing: border-box;
+  .nav-register-button{
+    text-decoration: none;
+    color: inherit;
+  }
+  h3{
+    border: 1px solid;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+    margin-right: 15px;
+    text-decoration: none;
+  }
   p{
     font-weight: 900;
-    color: #7C2629;
+    color: $primary;
     text-shadow: 1px 1px #F9FAF9;
     margin: 15px;
-    font-family: 'Franklin Gothic Medium';
+    font-family: $font;
   }
 }
 .nav-prof-image-container{
@@ -63,7 +74,6 @@
 
 .nav-dropdown-hamburger-div{
   @include flex(row, initial,center);
-  // border: 2px solid;
   position: relative;
   top: 0;
   height: 62px;
@@ -76,31 +86,32 @@
   font-size: 45px;
   font-weight: 900;
   height: 55px;
-  // background-color: blue;
-  font-family: 'Franklin Gothic Medium';
+  font-family: $font;
   width: 100%;
   p{
-    
   }
-  // display: inline;
 }
-.nav-words-title{
-  color: #7C2629;
-  text-decoration: none;
 
+.nav-words-title{
+  text-decoration: none;
+  height: 65px;
+  @include flex(row, center,center);
+  p{
+    @include flex(row,center,center);
+    align-self: center;
+    margin: 0;
+    height: 65px;
+  }
+  color: $primary;
 }
 
 .nav-menu-button-container{
   padding: 5px;
   box-sizing: border-box;
-  // border: 2px solid;
   @include flex(column, space-evenly,initial);
-
-  // margin-top: 5px;
   height:100%;
 }
 .hamburger-menu{
-  // background-color: pink;
   position: fixed;
   top: 0;
   left: 0;
@@ -119,7 +130,6 @@
 
 %menu-button-divs{
   @include flex(row, flex-start, center);
-  // background-color: pink;
   height: 25px;
   padding: 2px;
   margin-left: 2.5px;
@@ -151,7 +161,6 @@
   @extend %link-buttons;
 }
 
-
 .hamburger-container{
   width: 5%;
   margin-left: 5px;
@@ -170,7 +179,6 @@
 
 
 @media screen and (max-width:550px){
-
   .nav-title{
     margin-left: 10px;
     font-size: 45px;
@@ -204,6 +212,9 @@
           font-weight:600;
         }
         .nav-profile-container{
+          h3{
+            margin-right: 0px;
+          }
               display: flex;
           justify-content: flex-end;
         }

@@ -10,7 +10,7 @@ function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='art-bar'>
-        <p></p>
+        {(props.user.points === 0 || props.isLoggedIn === false) && <p>Click on a picture to start a game.</p>}
       </div>
       <div className='game-container'>
         <div className='picture-box-container'>

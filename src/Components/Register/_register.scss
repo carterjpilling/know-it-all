@@ -1,0 +1,47 @@
+@import '../../variables';
+
+.register-body{
+  padding: 20px;
+  @include flex(column,initial,center);
+  // font-family: $font;
+  // font-weight: 200;
+  width: 100%;
+  height: 100vh;
+  form{
+    // @include flex(column, center,center);
+    input{
+      margin: 10px;
+      width: 250px;
+    }
+  }
+}
+.register-text-box{
+  @include flex(column,center,center);
+  font-weight: bold;
+  font-family: $primary;
+  color: black;
+}
+.register-box{
+  
+  width: 400px;
+  border: 2px solid;
+  @include flex(column,center,center);
+  height:400px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: $primary;
+  form{
+    // @include font(200);
+    color:white;
+  }
+ 
+}
+
+.register-button{
+  margin-top: 10px;
+  border: 1px solid;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+}

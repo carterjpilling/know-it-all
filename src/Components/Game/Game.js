@@ -7,6 +7,9 @@ import PropagateLoader from 'react-spinners/PropagateLoader'
 import RingLoader from 'react-spinners/RingLoader'
 
 function Game(props) {
+  axios.get('/api/auth/me').then().catch(() => {
+    props.history.push('/homepage')
+  })
 
   const [category, setCategory] = useState({
     gameArray: [],

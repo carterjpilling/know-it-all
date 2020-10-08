@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import Login from '../Login/Login'
 import { Link, withRouter } from 'react-router-dom'
-// import './Navbar.scss'
 import { logoutUser, getUser } from '../../reducks/authReducer'
 import axios from 'axios'
 import { MdHome } from "react-icons/md";
@@ -10,7 +10,6 @@ import { CgProfile } from "react-icons/cg";
 import { GoSignOut } from "react-icons/go";
 import { connect } from 'react-redux'
 
-//logout will need to exist here.
 function Nav(props) {
   const [menu, setMenu] = useState(false)
   useEffect(() => {
@@ -36,8 +35,8 @@ function Nav(props) {
 
   function triggerLogout() {
     axios.post('/api/auth/logout').then(() => {
-      props.history.push('/')
       props.logoutUser()
+      window.location.reload()
     })
     setMenu(false)
   }
@@ -57,12 +56,6 @@ function Nav(props) {
           <Link className='nav-words-title' to='/homepage'>
             <p >KNOW IT ALL</p>
           </Link></div>
-
-        {/* <Link to='/'>Login Page</Link> */}
-
-
-
-
         {props.isLoggedIn === true ?
           <div className='nav-profile-container'>
             <p>{props.user.points} Points</p>
@@ -71,7 +64,13 @@ function Nav(props) {
             </div>
 
           </div>
-          : <div className='nav-profile-container'>   </div>}
+          : <div className='nav-profile-container'>
+            {props.location.pathname !== '/register' &&
+              <Link className='nav-register-button' to='/register'>
+                <h3 className='nav-register-button'>Register</h3>
+              </Link>}
+            <Login />
+          </div>}
 
         {menu === false ? null : <div className='hamburger-menu'>
           <div className='nav-dropdown-hamburger-div'>

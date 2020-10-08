@@ -6,6 +6,10 @@ import { ResponsiveBar } from '@nivo/bar'
 
 
 function Statistics(props) {
+  axios.get('/api/auth/me').then().catch(() => {
+    props.history.push('/homepage')
+  })
+
   const [allStats, setStats] = useState({ responses: [], isLoading: false })
   const [databank, setDatabank] = useState({ dataArr: [] })
   const [userStats, setUserStats] = useState({ responses: [] })
@@ -99,6 +103,7 @@ function Statistics(props) {
     if (window.confirm("Are you sure that you want to delete your game history?")) {
       txt = 'Your games have been deleted';
       axios.delete('/api/stats')
+      window.location.reload()
     } else {
       txt = 'You did not delete your game history';
     }
