@@ -21,9 +21,19 @@ function Nav(props) {
       })
     }
     setMenu(false)
-    console.log('Nice')
   }, [])
 
+  const newArr = ['european', 'american', 'permanent']
+  function randomGame() {
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+    }
+    props.history.push(`/game/${newArr[0]}`)
+    console.log(newArr)
+    toggleMenu()
+    return newArr
+  }
 
   function triggerLogout() {
     axios.post('/api/auth/logout').then(() => {
@@ -72,14 +82,14 @@ function Nav(props) {
                 </p>
               </div>
             </Link>
-            <Link className='nav-links'>
-              <div className='nav-homepage-button'>
-                <GiPerspectiveDiceSixFacesRandom />
-                <p>
-                  Random Game
+
+            <div onClick={() => randomGame()} className='nav-homepage-button'>
+              <GiPerspectiveDiceSixFacesRandom />
+              <p>
+                Random Game
                 </p>
-              </div >
-            </Link>
+            </div >
+
             <Link className='nav-links' onClick={() => toggleMenu()} to='/profile/statistics'>
               <div className='nav-homepage-button'>
                 <AiOutlineBarChart />
@@ -98,14 +108,14 @@ function Nav(props) {
               </div>
             </Link>
 
-            <Link className='nav-links' onClick={() => triggerLogout()}>
-              <div className='nav-homepage-button'>
-                <GoSignOut />
-                <p>
-                  Signout
+
+            <div onClick={() => triggerLogout()} className='nav-homepage-button'>
+              <GoSignOut />
+              <p>
+                Signout
                 </p>
-              </div>
-            </Link>
+            </div>
+
           </li>
         </div>}
       </div>

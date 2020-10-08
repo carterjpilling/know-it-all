@@ -23,6 +23,8 @@ function Game(props) {
 
   }, [page])
 
+
+
   function randomQuestionType(arr) {
     const newArr = arr.slice()
     for (let i = newArr.length - 1; i > 0; i--) {
@@ -33,7 +35,6 @@ function Game(props) {
   }
 
   useEffect(() => {
-    console.log(props.user.points)
     axios.get(`/api/art/${props.match.params.category}`).then((res) => {
       setPage({ currentIndex: 0 })
       setCategory((prevState) => {

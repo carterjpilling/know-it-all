@@ -12,7 +12,6 @@ function Dashboard(props) {
   useEffect(() => {
     props.getUser()
   }, [])
-  console.log(props.user.points)
 
   return (
     <div className='dashboard-container'>
