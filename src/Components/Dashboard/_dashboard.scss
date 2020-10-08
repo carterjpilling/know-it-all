@@ -28,6 +28,7 @@
   // @extend %game-container;
   @include flex(column, center,initial);
   h2{
+    font-family: 'Franklin Gothic Medium';
     margin: 0;
   }
 }
@@ -59,7 +60,7 @@
     position: absolute;
     align-self: center;
     text-align: center;
-    background-color: #f5b4e6a9;
+    background-color: #7C2629;
     border-radius: 5%;
     cursor: pointer;
     z-index: 2;
@@ -82,9 +83,9 @@
   align-self: center;
   width: 90%;
   height: 50px;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
   // border: 2px solid;
-  background-color: #bdbfca65;
+  // background-color: #7c26297a;
   margin-top: 10px;
 }
 

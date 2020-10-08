@@ -236,7 +236,7 @@ function Statistics(props) {
         // },
         {
           category: "American",
-          AverageScore: gameObject.americPoints.average.toFixed(2),
+          AverageScore: gameObject.americPoints.average,
           gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
@@ -248,7 +248,7 @@ function Statistics(props) {
         },
         {
           category: "European",
-          AverageScore: gameObject.euroPoints.average.toFixed(2),
+          AverageScore: gameObject.euroPoints.average,
           gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
@@ -259,7 +259,7 @@ function Statistics(props) {
         },
         {
           category: "Paintings",
-          AverageScore: gameObject.permPoints.average.toFixed(2),
+          AverageScore: gameObject.permPoints.average,
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
@@ -386,7 +386,7 @@ function Statistics(props) {
       let average = 0
       let length = 0
       if (gameObject[prop].length > 0) {
-        average = gameObject[prop].reduce((prev, curr) => prev + curr) / gameObject[prop].length
+        average = (gameObject[prop].reduce((prev, curr) => prev + curr) / gameObject[prop].length).toFixed(2)
         length = gameObject[prop].length
       }
       gameObject[prop] = { average, length }
@@ -406,7 +406,7 @@ function Statistics(props) {
         // },
         {
           category: "American",
-          AverageScore: gameObject.americPoints.average.toFixed(2),
+          AverageScore: gameObject.americPoints.average,
           gamesPlayed: gameObject.americPoints.length,
           date: gameObject.americDate.average,
           dateGames: gameObject.americDate.length,
@@ -418,7 +418,7 @@ function Statistics(props) {
         },
         {
           category: "European",
-          AverageScore: gameObject.euroPoints.average.toFixed(2),
+          AverageScore: gameObject.euroPoints.average,
           gamesPlayed: gameObject.euroPoints.length,
           date: gameObject.euroDate.average,
           dateGames: gameObject.euroDate.length,
@@ -429,7 +429,7 @@ function Statistics(props) {
         },
         {
           category: "Paintings",
-          AverageScore: gameObject.permPoints.average.toFixed(2),
+          AverageScore: gameObject.permPoints.average,
           gamesPlayed: gameObject.permPoints.length,
           date: gameObject.permDate.average,
           dateGames: gameObject.permDate.length,
@@ -447,10 +447,11 @@ function Statistics(props) {
       <div className='grandparent-statistics-container'>
         <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete stats.</button>
         <div className='statistics-container-one'>
-          <div >
-            <button onClick={() => toggleUserCategories('American')}>Toggle American Category</button>
-            <button onClick={() => toggleUserCategories('European')}>Toggle European Category</button>
-            <button onClick={() => toggleUserCategories('Paintings')}>Toggle Paintings Category</button>
+          <h2>{props.user.username}'s stats.</h2>
+          <div className='stats-toggle-category-div'>
+            <button className='stats-american-button' onClick={() => toggleUserCategories('American')}>American</button>
+            <button className='stats-european-button' onClick={() => toggleUserCategories('European')}>European</button>
+            <button className='stats-paintings-button' onClick={() => toggleUserCategories('Paintings')}>Paintings</button>
           </div>
           <div className='stats-graph'>
             <ResponsiveBar data={userDataBank.dataArr}
@@ -461,6 +462,26 @@ function Statistics(props) {
               colors={{ scheme: 'set2' }}
               colorBy="index"
               defs={[
+                {
+                  id: 'dots',
+                  type: 'patternDots',
+                  background: 'inherit',
+                  color: '#38bcb2',
+                  size: 4,
+                  padding: 1,
+                  stagger: true
+                },
+                {
+                  id: 'lines',
+                  type: 'patternLines',
+                  background: 'inherit',
+                  color: '#eed312',
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10
+                }
+              ]}
+              fill={[
 
               ]}
               borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
@@ -478,26 +499,25 @@ function Statistics(props) {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'Average Score',
+                legend: 'Average Scores',
                 legendPosition: 'middle',
                 legendOffset: -40
               }}
               labelSkipWidth={12}
               labelSkipHeight={12}
               labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-              legends={[
-
-              ]}
+              legends={[]}
               animate={true}
               motionStiffness={90}
               motionDamping={15}
             /></div>
         </div>
         <div className='statistics-container-two'>
-          <div>
-            <button onClick={() => toggleAllCategories('American')}>Toggle American Category</button>
-            <button onClick={() => toggleAllCategories('European')}>Toggle European Category</button>
-            <button onClick={() => toggleAllCategories('Paintings')}>Toggle Paintings Category</button>
+          <h2>All users' stats.</h2>
+          <div className='stats-toggle-category-div'>
+            <button className='stats-american-button' onClick={() => toggleAllCategories('American')}>American</button>
+            <button className='stats-european-button' onClick={() => toggleAllCategories('European')}>European</button>
+            <button className='stats-paintings-button' onClick={() => toggleAllCategories('Paintings')}>Paintings</button>
           </div>
           <div className='stats-graph'>
             <ResponsiveBar data={databank.dataArr}
@@ -507,8 +527,40 @@ function Statistics(props) {
               padding={0.3}
               colors={{ scheme: 'set2' }}
               colorBy="index"
-              defs={[]}
-              fill={[]}
+              defs={[
+                {
+                  id: 'dots',
+                  type: 'patternDots',
+                  background: 'inherit',
+                  color: '#38bcb2',
+                  size: 4,
+                  padding: 1,
+                  stagger: true
+                },
+                {
+                  id: 'lines',
+                  type: 'patternLines',
+                  background: 'inherit',
+                  color: '#eed312',
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10
+                }
+              ]}
+              fill={[
+                {
+                  match: {
+                    id: 'fries'
+                  },
+                  id: 'dots'
+                },
+                {
+                  match: {
+                    id: 'sandwich'
+                  },
+                  id: 'lines'
+                }
+              ]}
               borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
               axisTop={null}
               axisRight={null}
@@ -524,16 +576,14 @@ function Statistics(props) {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'Average Score',
+                legend: 'Average Scores',
                 legendPosition: 'middle',
                 legendOffset: -40
               }}
               labelSkipWidth={12}
               labelSkipHeight={12}
               labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-              legends={[
-
-              ]}
+              legends={[]}
               animate={true}
               motionStiffness={90}
               motionDamping={15}

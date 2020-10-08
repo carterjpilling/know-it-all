@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .game-body{
+  font-family: 'Franklin Gothic Medium';
   @include flex(column, center, center);
   width: 100%;
   height: 100%;
@@ -23,7 +24,7 @@
   @include flex(column, center,center);
   width: 60%;
   margin: 5px;
-  box-shadow: 1px 1px 3px 0px #C68536;
+  box-shadow: 0px 0px 3px 0px #C68536;
   margin-bottom: 200px;
 }
 
@@ -58,15 +59,10 @@
   box-shadow: inset 200px 0 0 0 var(--hover);
     cursor: pointer;
 }
-.game-button{
-  
-}
 
 .game-button-information-container{
   @include flex(column, center, center);
 }
-
-
 
 .correct-answer{
   transition: all 1s;
@@ -75,11 +71,15 @@
   border: 2px solid;
   border-radius: 5px;;
   width: 200px;
+  font-weight: 500;
   margin: 5px;
+  font-family: 'Franklin Gothic Medium';
   padding: 10px;
 }
 
 .incorrect-answer{
+  font-family: 'Franklin Gothic Medium';
+  font-weight: 600;
   outline: none;
   border: 2px solid;
   border-radius: 5px;;
@@ -178,6 +178,12 @@ $colors: (
   .game-picture-container{
     width: 100%;
     height: 300px;
+    box-sizing: border-box;
+  }
+  .first-picture{
+    max-width: 200px;
+    max-height: 300px;
+    margin-bottom: 5px;
   }
   .game-button-information-container{
     h1{

@@ -20,10 +20,17 @@ function Game(props) {
   const [imgLoaded, setImgLoaded] = useState(false)
 
   useEffect(() => {
-
+    randomQuestionType(['title', 'artist', 'date'])
   }, [page])
 
-
+  useEffect(() => {
+    axios.get(`/api/art/${props.match.params.category}`).then((res) => {
+      setPage({ currentIndex: 0 })
+      setCategory((prevState) => {
+        return { ...prevState, gameArray: res.data, isLoading: false }
+      })
+    })
+  }, [])
 
   function randomQuestionType(arr) {
     const newArr = arr.slice()
@@ -35,23 +42,9 @@ function Game(props) {
   }
 
   useEffect(() => {
-    axios.get(`/api/art/${props.match.params.category}`).then((res) => {
-      setPage({ currentIndex: 0 })
-      setCategory((prevState) => {
-        return { ...prevState, gameArray: res.data, isLoading: false }
-      })
-    })
-  }, [])
-  useEffect(() => {
-    randomQuestionType(['title', 'artist', 'date'])
-  }, [page])
-
-  useEffect(() => {
     const { isLoading, gameArray } = category
     const { newArr } = questionType
     const { currentIndex } = page
-
-
     if (currentIndex !== 10) {
       if (isLoading !== true) {
         const responseArr = []
@@ -215,7 +208,7 @@ function Game(props) {
             />
           </div>
           <div className='game-button-information-container'>
-            <h1>{`Guess the ${questionType.newArr[0]} of this art.`}</h1>
+            <h1>{`Guess the ${questionType.newArr[0]}.`}</h1>
             {multipleChoiceResponses}
             {buttonEnabler === true ? <button className='game-next-button' onClick={() => { handlerFunctionNext() }}>Next Question</button> : null}
             <h3>Points:{points.roundPoints}</h3>

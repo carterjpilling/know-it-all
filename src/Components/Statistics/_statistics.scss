@@ -1,34 +1,54 @@
 @import '../../variables';
 
 .grandparent-statistics-container{
-  @include flex(row, center,center);
+  margin-top: 10px;
+  font-family: 'Franklin Gothic Medium';
+  @include flex(row, space-evenly,center);
   height: 600px;
   width: 100%;
   // background-color: pink;
   padding: 5px;
   box-sizing: border-box;
+  h2{
+    margin-bottom: 5px;
+  }
+  button {  
+    color: var(--color);
+    transition: 1s;
+    
+    &:hover,
+    &:focus { 
+      border-color: var(--hover);
+      color: #fff;
+    }
+  }
 }
 
 .stats-graph{
   height: 500px;
-  border: 2px solid;
-  margin-top: 10px;
   width: 400px;
+  font-family: 'Franklin Gothic Medium';
 }
 .statistics-container-one{
-  @include flex(column, center, center);
-  margin: 10px;
-  position: relative;
-  height: 100%;
-  // background-color: $primary;
-}
-
-.statistics-container-two{
+  // border: 1px solid #7C2629;
+  box-shadow: 0px 1px 1px 0px black;
   @include flex(column, center, center);
   margin: 10px;
   position: relative;
   height: 100%;
   box-sizing: border-box;
+  width: 450px;
+  // background-color: $primary;
+}
+
+.statistics-container-two{
+  box-shadow: 0px 1px 1px 0px black;
+  @include flex(column, center, center);
+  margin: 10px;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  width: 450px;
   // background-color: blue;
 }
 
@@ -37,18 +57,105 @@
   bottom: 0;
   margin: auto;
 }
+
+.stats-toggle-category-div{
+width: 400px;
+@include flex(row, space-between,center);
+padding: 5px;
+box-sizing: border-box;
+font-family: 'Franklin Gothic Medium';
+
+
+}
+
+$colors: (
+  stats-american-button: #7C2629,
+  stats-european-button: #7C2629, 
+  stats-paintings-button: #7C2629, 
+);
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 5deg)};
+  }
+}
+
+.stats-american-button:hover,
+.stats-american-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+.stats-european-button:hover,
+.stats-european-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+.stats-paintings-button:hover,
+.stats-paintings-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+%toggle-buttons{
+  font-family: 'Franklin Gothic Medium';
+  font-size: 15px;
+  background: none;
+  padding: 5px;
+  outline: none;
+  border: 2px solid;
+  border-radius: 5px;;
+  width: 200px;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 10px;
+  background: none;
+  transition: 0.5s;
+}
+.stats-american-button{
+@extend %toggle-buttons;
+}
+.stats-european-button{
+  @extend %toggle-buttons;
+}
+.stats-paintings-button{
+  @extend %toggle-buttons;
+}
+
+
 @media screen and (max-width:900px){
+  .grandparent-statistics-container{
+    position: relative;
+    @include flex (column,center,center);
+    height:1300px;
+    margin-top: 0px;
+  }
+.stats-graph{
+  width: 400px;
+}
+.statistics-container-one{
+  width: 400px;
+}
+.statistics-container-two{
+  width: 400px;
+}
+
+}
+
+@media screen and (max-width:450px){
   .grandparent-statistics-container{
     position: relative;
     @include flex (column,center,center);
     height:1300px;
   }
 .stats-graph{
-  width: 250px;
+  width: 300px;
 }
 .statistics-container-one{
-  width: 250px;
+  width: 300px;
+}
+.statistics-container-two{
+  width: 300px;
+}
+.stats-toggle-category-div{
+  width: 300px;
+}
 }
 
-
-}

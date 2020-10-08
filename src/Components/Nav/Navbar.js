@@ -5,7 +5,7 @@ import { logoutUser, getUser } from '../../reducks/authReducer'
 import axios from 'axios'
 import hamburger from '../pictures/hamburger.png'
 import { MdHome } from "react-icons/md";
-import { GiPerspectiveDiceSixFacesRandom, GiHamburgerMenu } from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GoSignOut } from "react-icons/go";
@@ -54,7 +54,7 @@ function Nav(props) {
         <div className='hamburger-container'>
           <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
         </div>
-        <div className='nav-title'>Know It All</div>
+        <div className='nav-title'>KNOW IT ALL</div>
 
         {/* <Link to='/'>Login Page</Link> */}
 
