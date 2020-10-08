@@ -53,7 +53,8 @@
 }
 
 .delete-stats-button{
-  position: fixed;
+  position: absolute;
+  // margin-top: 5px;
   bottom: 0;
   margin: auto;
 }

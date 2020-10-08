@@ -60,7 +60,7 @@ function Profile(props) {
     return (
 
       <div key={index}>
-        <img src={element.image} onClick={() => updatePicture(element.image)} alt={element.image} />
+        <img className='profile-images' src={element.image} onClick={() => updatePicture(element.image)} alt={element.image} />
       </div>
     )
   })
@@ -74,10 +74,13 @@ function Profile(props) {
   })
 
   return (
-    <div >
-      {profPicturesMap}
-      {profTitleMap}
+    <div className='profile-body'>
+      <p>Click on a image and save changes to change your profile picture.</p>
       <button onClick={() => saveProfileChanges()}>Save Profile Changes</button>
+      <div className='prof-images-array'>
+        {profPicturesMap}
+      </div>
+      {/* {profTitleMap} */}
       {/* <Titles titlesData={state.titles} />
       <Profpictures profilePictures={state.profile_pictures} /> */}
     </div>

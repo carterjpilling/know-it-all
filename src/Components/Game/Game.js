@@ -191,9 +191,6 @@ function Game(props) {
         <button className='game-go-home-button' onClick={() => submitRound(true)}>Go Home</button>
       </div> : <>{category.isLoading ?
         <div className='ring-loader'><RingLoader className='ring-loader'
-        // css={override}
-        // color={#D5959E}
-
         /></div> : <div className='game-game-container'>
           <div className='game-picture-container'>
             {imgLoaded === false ?

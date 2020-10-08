@@ -3,9 +3,8 @@ import { Link, withRouter } from 'react-router-dom'
 // import './Navbar.scss'
 import { logoutUser, getUser } from '../../reducks/authReducer'
 import axios from 'axios'
-import hamburger from '../pictures/hamburger.png'
 import { MdHome } from "react-icons/md";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesRandom, GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GoSignOut } from "react-icons/go";
@@ -52,26 +51,32 @@ function Nav(props) {
     return (
       <div className='nav-header'>
         <div className='hamburger-container'>
-          <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
+          {props.isLoggedIn === true ? <GiHamburgerMenu className='hamburger' onClick={() => toggleMenu()} /> : null}
         </div>
-        <div className='nav-title'>KNOW IT ALL</div>
+        <div className='nav-title'>
+          <Link className='nav-words-title' to='/homepage'>
+            <p >KNOW IT ALL</p>
+          </Link></div>
 
         {/* <Link to='/'>Login Page</Link> */}
 
 
 
 
-        <div className='nav-profile-container'>
-          <p>{props.user.points} Points</p>
-          {/* <p>{props.user.username}</p> */}
-          <div className='nav-prof-image-container'>
-            <img className='img-profile-picture' src={props.user.profile_picture} alt={'user profile'} />
+        {props.isLoggedIn === true ?
+          <div className='nav-profile-container'>
+            <p>{props.user.points} Points</p>
+            <div className='nav-prof-image-container'>
+              <img className='img-profile-picture' src={props.user.profile_picture} alt={'user profile'} />
+            </div>
+
           </div>
-        </div>
+          : <div className='nav-profile-container'>   </div>}
 
         {menu === false ? null : <div className='hamburger-menu'>
           <div className='nav-dropdown-hamburger-div'>
-            <img src={hamburger} className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} />
+            {props.isLoggedIn === true ? <GiHamburgerMenu className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} /> : null}
+
           </div>
           <li className='nav-menu-button-container'>
             <Link className='nav-links' onClick={() => toggleMenu()} to='/homepage'>

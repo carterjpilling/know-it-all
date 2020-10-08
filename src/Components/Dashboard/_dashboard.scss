@@ -25,10 +25,10 @@
 
 
 .picture-box-container{
-  // @extend %game-container;
   @include flex(column, center,initial);
   h2{
-    font-family: 'Franklin Gothic Medium';
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 500;
     margin: 0;
   }
 }

@@ -47,8 +47,10 @@
   box-shadow: 2px 3px 5px 0px rgba(125,125,125,1);
   img
   {
+    object-fit: cover;
     transition: all .4s ease-out;
-    height: 50px;
+    height: 55px;
+    min-width: 50px;
     
   }
   img:hover{
@@ -74,9 +76,18 @@
   font-size: 45px;
   font-weight: 900;
   height: 55px;
+  // background-color: blue;
   font-family: 'Franklin Gothic Medium';
-  color: #7C2629;
   width: 100%;
+  p{
+    
+  }
+  // display: inline;
+}
+.nav-words-title{
+  color: #7C2629;
+  text-decoration: none;
+
 }
 
 .nav-menu-button-container{
@@ -117,6 +128,7 @@
 %menu-button-divs:hover{
   cursor: pointer;
 }
+
 %link-buttons{
   color: inherit;
   text-decoration: none;

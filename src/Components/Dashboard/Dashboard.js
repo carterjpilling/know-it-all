@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { getUser } from '../../reducks/authReducer'
-import { connect } from 'react-redux'
 import skullImage from '../../assets/skull.jpg'
 import americanImage from '../../assets/american.jpg'
 import danceImage from '../../assets/dance.jpg'
 
 
-function Dashboard(props) {
-
-  useEffect(() => {
-    props.getUser()
-  }, [])
+function Dashboard() {
 
   return (
     <div className='dashboard-container'>
@@ -54,6 +48,4 @@ function Dashboard(props) {
   )
 }
 
-const mapStateToProps = (reduxState) => reduxState
-
-export default connect(mapStateToProps, { getUser })(Dashboard)
+export default (Dashboard)
