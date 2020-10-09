@@ -7,6 +7,13 @@
   // font-weight: 200;
   width: 100%;
   height: 100vh;
+  button{
+    &:hover,
+    &:focus { 
+      border-color: var(--hover);
+      color: black;
+    }
+  }
   form{
     // @include flex(column, center,center);
     input{
@@ -31,17 +38,40 @@
   box-sizing: border-box;
   background-color: $primary;
   form{
-    // @include font(200);
+    @include font(200);
     color:white;
   }
  
 }
 
+$colors: (
+  register-button: rgb(128, 45, 45),
+);
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 5deg)};
+  }
+}
+
+
+.register-button:hover,
+.register-button:focus{
+
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+
+
 .register-button{
   margin-top: 10px;
   border: 1px solid;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    text-decoration: none;
+  padding: 5px;
+  padding-left: 10px;    
+  padding-right: 10px;
+  text-decoration: none;
+  // color: var(--color);
+  // transition: 1s;
+  
+  
 }
+

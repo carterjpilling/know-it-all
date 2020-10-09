@@ -66,7 +66,7 @@ function Login(props) {
           placeholder='Email' /> */}
 
       </form>
-      <button onClick={() => { handleLogin() }} >Login</button>
+      <button className='login-button' onClick={() => { handleLogin() }} >Login</button>
       {/* <button onClick={() => { handleRegister() }}>Register</button> */}
       {/* <button onClick={() => { handleLogout() }}>Logout</button> */}
     </div>

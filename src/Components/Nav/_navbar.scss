@@ -18,6 +18,20 @@
   }
 }
 
+$colors: (
+  nav-register-button: white, 
+);
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 5deg)};
+  }
+}
+
+// .nav-register-button:hover,
+// .nav-register-button:focus{
+//   box-shadow: inset 0 -3.25em 0 0 var(--hover);
+// }
+
 .nav-profile-container{
   display:flex;
   align-items: center;
@@ -27,11 +41,21 @@
   width: 300px;
   box-sizing: border-box;
   .nav-register-button{
+    // width: 100%;
     text-decoration: none;
     color: white;
     border-radius: 5%;
+   
+
   }
   h3{
+    &:hover,
+    &:focus { 
+      border-color: var(--hover);
+      color: black;
+      transition: 1s;
+      box-shadow: inset 0 -3.25em 0 0 var(--hover);
+    }
     border: 1px solid;
     padding: 5px;
     padding-left: 10px;

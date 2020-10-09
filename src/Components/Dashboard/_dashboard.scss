@@ -130,21 +130,15 @@ p{
 }
 }
 
-// .art-bar-two{
-//   padding: 20px;
-//   color: white;
-//   @include flex(column, initial,center);
-// @extend .art-bar;
-// // margin-top:50px;
-// height: 100%;
-// background-color: $primary  ;
-// h2{
-//   margin-bottom: 5px;
-// }
-// p{
-//   margin: 0;
-// }
-// }
+.art-bar-two{
+  padding: 20px;
+  // color: white;
+  @include flex(column, initial,center);
+  width: 100%;
+// margin-top:50px;
+height: 100%;
+background-color: $primary  ;
+}
 
 .game-container{
   display: flex;
