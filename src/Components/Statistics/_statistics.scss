@@ -1,8 +1,8 @@
 @import '../../variables';
 
 .grandparent-statistics-container{
-  margin-top: 10px;
-  font-family: 'Franklin Gothic Medium';
+  margin-top: 25px;
+  font-family: $font;
   @include flex(row, space-evenly,center);
   height: 600px;
   width: 100%;
@@ -15,6 +15,8 @@
   button {  
     color: var(--color);
     transition: 1s;
+    font-family: $font;
+    font-weight: 400;
     
     &:hover,
     &:focus { 
@@ -53,8 +55,34 @@
 
 .delete-stats-button{
   position: absolute;
-  bottom: 0;
+  bottom: 5px;
   margin: auto;
+  background: none;
+  border:1px solid;
+  padding: 10px;
+  &:hover,
+  &:focus { 
+    cursor: pointer;
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+
+$colors: (
+  stats-american-button: #7C2629,
+  stats-european-button: #7C2629, 
+  stats-paintings-button: #7C2629,
+  delete-stats-button: #7C2629,
+);
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 5deg)};
+  }
+}
+
+.delete-stats-button:hover,
+.delete-stats-button:focus{
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
 }
 
 .stats-toggle-category-div{
@@ -67,16 +95,7 @@ font-family: 'Franklin Gothic Medium';
 
 }
 
-$colors: (
-  stats-american-button: #7C2629,
-  stats-european-button: #7C2629, 
-  stats-paintings-button: #7C2629, 
-);
-@each $button, $color in $colors {
-  .#{$button} {
-    --hover: #{adjust-hue($color, 5deg)};
-  }
-}
+
 
 .stats-american-button:hover,
 .stats-american-button:focus{
@@ -107,6 +126,15 @@ $colors: (
   padding: 10px;
   background: none;
   transition: 0.5s;
+  
+}
+
+%toggle-buttons:hover{
+  cursor: pointer;
+
+}
+
+.stats-american-button:hover{
 }
 .stats-american-button{
 @extend %toggle-buttons;

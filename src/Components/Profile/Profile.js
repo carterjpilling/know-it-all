@@ -81,8 +81,8 @@ function Profile(props) {
 
   return (
     <div className='profile-body'>
-      <p>Click on a image and save changes to change your profile picture.</p>
-      <button onClick={() => saveProfileChanges()}>Save Profile Changes</button>
+      <p>Click on a image to change your profile picture. Make sure to save your changes.</p>
+      <button className='profile-save-changes-button' onClick={() => saveProfileChanges()}>Save Profile Changes</button>
       <div className='prof-images-array'>
         {profPicturesMap}
       </div>

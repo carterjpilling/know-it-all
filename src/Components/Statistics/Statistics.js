@@ -221,7 +221,7 @@ function Statistics(props) {
       let average = 0
       let length = 0
       if (gameObject[prop].length > 0) {
-        average = gameObject[prop].reduce((prev, curr) => prev + curr) / gameObject[prop].length
+        average = (gameObject[prop].reduce((prev, curr) => prev + curr) / gameObject[prop].length).toFixed(2)
         length = gameObject[prop].length
       }
       gameObject[prop] = { average, length }
@@ -450,7 +450,7 @@ function Statistics(props) {
   if (allStats.isLoading === true) {
     return (
       <div className='grandparent-statistics-container'>
-        <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete stats.</button>
+        <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete Stats</button>
         <div className='statistics-container-one'>
           <h2>{props.user.username}'s stats.</h2>
           <div className='stats-toggle-category-div'>
