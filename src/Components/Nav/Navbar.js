@@ -74,7 +74,7 @@ function Nav(props) {
 
         {menu === false ? null : <div className='hamburger-menu'>
           <div className='nav-dropdown-hamburger-div'>
-            {props.isLoggedIn === true ? <GiHamburgerMenu className='hamburger' alt='hamburger-icon' onClick={() => toggleMenu()} /> : null}
+            {props.isLoggedIn === true ? <GiHamburgerMenu className='hamburger-two' alt='hamburger-icon' onClick={() => toggleMenu()} /> : null}
 
           </div>
           <li className='nav-menu-button-container'>

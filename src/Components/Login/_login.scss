@@ -4,7 +4,8 @@
   @include flex (row, center, center);
   button{
     outline: none;
-    border: 1px solid black;
+    color: white;
+    border: 1px solid ;
     border-radius: 8%;
     background: none;
     padding: 5px;
@@ -23,7 +24,11 @@
 }
 
 @media only screen and (max-width:505px){
+.login-div{
+  @include flex(column,center,center);
+}
 .login-form{
+  @include flex(column,center,center);
   input{
     @include flex(column,center,center);
     width: 60px;

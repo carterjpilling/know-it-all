@@ -10,7 +10,8 @@ function Dashboard(props) {
   return (
     <div className='dashboard-container'>
       <div className='art-bar'>
-        {(props.user.points === 0 || props.isLoggedIn === false) && <p>Click on a picture to start a game.</p>}
+        <h2 className='dash-footer-title'>Do You Know It All?</h2>
+        <p>Click on a category to find out!</p>
       </div>
       <div className='game-container'>
         <div className='picture-box-container'>
@@ -54,7 +55,9 @@ function Dashboard(props) {
         </div>
       </div>
       <div className='art-bar-two'>
-        <p></p>
+        {/* <h2 className='dash-footer-title'>Do You Know It All?</h2>
+        <p>Click on a category to find out!</p> */}
+
       </div>
     </div>
 

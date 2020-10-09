@@ -4,7 +4,7 @@
   position: relative;
   top: 0;
   z-index: 2;
-  background-color: white;
+  background-color: $primary;
   display:flex;
   align-items: center;
   align-content: center;
@@ -28,7 +28,8 @@
   box-sizing: border-box;
   .nav-register-button{
     text-decoration: none;
-    color: inherit;
+    color: white;
+    border-radius: 5%;
   }
   h3{
     border: 1px solid;
@@ -41,8 +42,7 @@
   }
   p{
     font-weight: 900;
-    color: $primary;
-    text-shadow: 1px 1px #F9FAF9;
+    color: white;
     margin: 15px;
     font-family: $font;
   }
@@ -102,7 +102,7 @@
     margin: 0;
     height: 65px;
   }
-  color: $primary;
+  color: white;
 }
 
 .nav-menu-button-container{
@@ -174,9 +174,20 @@
   position: relative;
   top: 0;
   left: 0;
+  color: white;
 
 }
+.hamburger-two{
+  width: 25px;
+  position: relative;
+  top: 0;
+  left: 0;
+  color: black;
+}
 
+.hamburger-two:hover{
+  cursor: pointer;
+}
 
 @media screen and (max-width:550px){
   .nav-title{
