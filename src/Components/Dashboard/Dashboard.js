@@ -11,7 +11,7 @@ function Dashboard(props) {
     <div className='dashboard-container'>
       <div className='art-bar'>
         <h2 className='dash-footer-title'>Do You Know It All?</h2>
-        <p>Click on a category to find out!</p>
+        <p>Click on a category to find out!!</p>
       </div>
       <div className='game-container'>
         <div className='picture-box-container'>

@@ -2,7 +2,7 @@
 
 .dashboard-container{
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   flex-direction: column;
   justify-content: space-between;
@@ -135,8 +135,8 @@ p{
   // color: white;
   @include flex(column, initial,center);
   width: 100%;
-// margin-top:50px;
-height: 100%;
+margin-top:30px;
+height: 70px;
 background-color: $primary  ;
 }
 

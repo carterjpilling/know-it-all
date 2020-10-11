@@ -1,9 +1,4 @@
 const bcrpyt = require('bcryptjs')
-/*
-email: john@gmail.com
-username: john
-password: john
-*/
 
 module.exports = {
   registerUser: async (req, res) => {
