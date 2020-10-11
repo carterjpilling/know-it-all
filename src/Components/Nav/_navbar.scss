@@ -27,10 +27,15 @@ $colors: (
   }
 }
 
-// .nav-register-button:hover,
-// .nav-register-button:focus{
-//   box-shadow: inset 0 -3.25em 0 0 var(--hover);
-// }
+.nav-register-container{
+  @include flex(row,center,center);
+  Link{
+    text-decoration: none;
+  }
+}
+.nav-register-button{
+  text-decoration: none;
+}
 
 .nav-profile-container{
   display:flex;
@@ -239,19 +244,35 @@ $colors: (
     width: 50px;
     @include flex(column,center,center);
   }
-      @media screen and (max-width:450px){
+
+@media screen and (max-width:900px){
+  .nav-prof-image-container{
+    // height: 55px;
+    // width: 50px;
+    @include flex(column,center,center);
+  
+    form{
+
+    }
+    .login-div{
+      @include flex(column,center,center);
+
+    }
+}
+}
+
+@media screen and (max-width:450px){
       
-        .nav-title{
-          margin-left: 11px;
-          font-size: 20px;
-          font-weight:600;
-        }
-        .nav-profile-container{
-          h3{
-            margin-right: 0px;
-          }
-              display: flex;
-          justify-content: flex-end;
-        }
-      }
+.nav-title{
+  margin-left: 11px;
+  font-size: 20px;
+  font-weight:600;
+}
+.nav-profile-container{
+  h3{
+     margin-right: 0px;
+  }
+      display: flex;
+  justify-content: flex-end;
+}}
 }

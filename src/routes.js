@@ -6,11 +6,13 @@ import Game from './Components/Game/Game'
 import Profile from './Components/Profile/Profile'
 import Statistics from './Components/Statistics/Statistics'
 import Register from './Components/Register/Register'
+import Login from './Components/Login/Login'
 
 export default (
   <Switch>
     <Route path='/homepage' component={Dashboard} />
     <Route path='/register' component={Register} />
+    <Route path='/login' component={Login} />
     <Route path='/game/:category' component={Game} />
     <Route exact path='/profile' component={Profile} />
     <Route path='/profile/statistics' component={Statistics} />

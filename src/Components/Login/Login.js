@@ -7,68 +7,62 @@ import { connect } from 'react-redux'
 
 function Login(props) {
   const [state, setState] = useState({
-    email: '',
     username: '',
     password: ''
   })
+  const [error, setError] = useState(false)
 
-  const { email, username, password } = state;
+  const { username, password } = state;
   function handleChange(e) {
     const { name, value } = e.target;
     setState(state => ({ ...state, [name]: value }))
   }
 
   function handleLogin(e) {
+    setError(false)
     axios
       .post('/api/auth/login', { username, password })
       .then((res) => {
         props.loginUser(res.data)
         props.history.push('/homepage')
       })
-  }
-
-  function handleRegister(e) {
-    axios.post('/api/auth/register', { email, username, password })
-      .then((res) => {
-        props.loginUser(res.data)
+      .catch(() => {
+        setError(true)
+        setState({
+          username: '',
+          password: ''
+        })
       })
   }
 
-  function handleLogout() {
-    axios.post('/api/auth/logout')
-      .then(() => props.logoutUser())
-  }
-
   return (
-    <div className='login-div'>
-      <form className='login-form'>
-        <input
-          type='text'
-          name='username'
-          placeholder='Username'
-          value={username}
-          onChange={handleChange}
-        />
+    <div className='login-body'>
+      <div className='login-box'>
+        <form className='login-form'>
+          <div className='login-text-box'>
+            <h3>Login below.</h3>
+          </div>
+          <input
+            type='text'
+            name='username'
+            placeholder='Username'
+            value={username}
+            onChange={handleChange}
+          />
 
-        <input
-          type='password'
-          name='password'
-          placeholder='Password'
-          value={password}
-          onChange={handleChange}
-        />
-
-        {/* <input
-          type='text'
-          name='email'
-          value={email}
-          onChange={handleChange}
-          placeholder='Email' /> */}
-
-      </form>
-      <button className='login-button' onClick={() => { handleLogin() }} >Login</button>
-      {/* <button onClick={() => { handleRegister() }}>Register</button> */}
-      {/* <button onClick={() => { handleLogout() }}>Logout</button> */}
+          <input
+            type='password'
+            name='password'
+            placeholder='Password'
+            value={password}
+            onChange={handleChange}
+          />
+        </form>
+        <button className='login-button' onClick={() => { handleLogin() }} >Login</button>
+        {error === true && <p className='login-error-message'>
+          Incorrect username or password.
+            </p>}
+      </div>
     </div>
   )
 }

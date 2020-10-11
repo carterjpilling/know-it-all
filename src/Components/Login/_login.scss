@@ -9,49 +9,74 @@ $colors: (
     --hover: #{adjust-hue($color, 5deg)};
   }
 }
-
-.login-div{
-  @include flex (row, center, center);
-  .login-button{
-    outline: none;
-    color: white;
-    border: 1px solid ;
-    border-radius: 8%;
-    background: none;
-    padding: 5px;
-    width: 60px;
-    box-sizing: border-box;
-    &:hover,
+.login-button{
+  &:hover,
     &:focus { 
-      cursor: pointer;
       border-color: var(--hover);
       color: black;
-      transition: 1s;
-      box-shadow: inset 0 -3.25em 0 0 var(--hover);
     }
-      
-  };
-  padding:5px;
 }
-
-.login-form{
-  @include flex (row, center, center);
-  margin-right: 10px;
-  input{
-    margin: 2.5px;
+$colors: (
+  login-button: rgb(128, 45, 45),
+);
+@each $button, $color in $colors {
+  .#{$button} {
+    --hover: #{adjust-hue($color, 5deg)};
   }
 }
 
-@media only screen and (max-width:505px){
-.login-div{
-  @include flex(column,center,center);
-}
-.login-form{
-  @include flex(column,center,center);
-  input{
-    @include flex(column,center,center);
-    width: 60px;
+.login-button{
+  margin-top: 10px;
+  border: 1px solid;
+  background-color: none;
+  padding: 5px;
+  padding-left: 10px;    
+  padding-right: 10px;
+  text-decoration: none;
+  &:hover,
+  &:focus{
+    box-shadow: inset 0 -3.25em 0 0 var(--hover);
   }
 }
+
+.login-form{
+  @include flex(column,center,center);
+  // background-color: white;
+  width: 100%;
+  height: 75%;
+  input{
+    margin: 15px;
+    border: 1px solid;
+    padding: 3px;
+    outline: none;
+    width: 70%;
+  }
+}
+
+.login-error-message{
+  color: white;
+  font: $font;
+}
+.login-body{
+  padding: 20px;
+  @include flex(column,initial,center);
+  // font-family: $font;
+  // font-weight: 200;
+  width: 100%;
+  height: 100vh;
+}
+.login-box{
+   
+  width: 400px;
+  border: 2px solid;
+  @include flex(column,center,center);
+  height:300px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: $primary;
+  form{
+    @include font(200);
+    color:white;
+  }
 }
 

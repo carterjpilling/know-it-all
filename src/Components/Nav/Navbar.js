@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Login from '../Login/Login'
 import { Link, withRouter } from 'react-router-dom'
 import { logoutUser, getUser } from '../../reducks/authReducer'
 import axios from 'axios'
@@ -65,11 +64,20 @@ function Nav(props) {
 
           </div>
           : <div className='nav-profile-container'>
-            {props.location.pathname !== '/register' &&
-              <Link className='nav-register-button' to='/register'>
-                <h3 className='nav-register-button'>Register</h3>
-              </Link>}
-            <Login />
+            <div className='nav-register-container' >
+              {props.location.pathname !== '/register' &&
+                <Link to='/register'>
+                  <h3 className='nav-register-button'>Register</h3>
+                </Link>
+              }
+              {props.location.pathname !== '/login' &&
+                <Link to='/login'>
+                  <h3 className='nav-register-button'>
+                    Login
+                </h3>
+                </Link>
+              }
+            </div>
           </div>}
 
         {menu === false ? null : <div className='hamburger-menu'>
