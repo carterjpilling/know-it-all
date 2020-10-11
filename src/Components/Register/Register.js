@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { loginUser } from '../../reducks/authReducer'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter }
+  from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -11,6 +12,7 @@ function Register(props) {
     username: '',
     password: ''
   })
+  const [error, setError] = useState(false)
 
   const { email, username, password } = state;
   function handleChange(e) {
@@ -20,10 +22,19 @@ function Register(props) {
 
 
   function handleRegister(e) {
+    setError(false)
     axios.post('/api/auth/register', { email, username, password })
       .then((res) => {
         props.loginUser(res.data)
         props.history.push('/homepage')
+      })
+      .catch(() => {
+        setError(true)
+        setState({
+          email: '',
+          username: '',
+          password: ''
+        })
       })
   }
 
@@ -65,7 +76,13 @@ function Register(props) {
           </div>
 
         </form>
-        <button className='register-button' onClick={() => { handleRegister() }}>Register</button>
+        <button className='register-button' onClick={() => { handleRegister() }}
+
+        >Register</button>
+        {error === true &&
+          <p>Username and/or email already taken.
+            </p>}
+
         {/* <div>
           <p>Already registered? Click <Link to='/homepage'>here</Link> to Login</p>
           <button>Login</button>

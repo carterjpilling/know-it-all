@@ -5,7 +5,6 @@
   @include flex(column,initial,center);
   // font-family: $font;
   // font-weight: 200;
-  width: 100%;
   height: 100vh;
   button{
     &:hover,
@@ -15,9 +14,9 @@
     }
   }
   form{
-    // @include flex(column, center,center);
     input{
       margin: 10px;
+      outline: none;
       width: 250px;
     }
   }
@@ -26,10 +25,14 @@
   @include flex(column,center,center);
   font-weight: bold;
   font-family: $primary;
-  color: black;
+  color: white;
+  margin-bottom: 15px;
+  h3{
+    margin: 2px;
+  }
 }
 .register-box{
-  
+  margin-top: 20px;
   width: 400px;
   border: 2px solid;
   @include flex(column,center,center);
@@ -45,7 +48,7 @@
 }
 
 $colors: (
-  register-button: rgb(128, 45, 45),
+  register-button: white,
 );
 @each $button, $color in $colors {
   .#{$button} {
@@ -56,22 +59,33 @@ $colors: (
 
 .register-button:hover,
 .register-button:focus{
-
+  cursor: pointer;
+  border-color: var(--hover);
+  color: black;
+  transition: 1s;
   box-shadow: inset 0 -3.25em 0 0 var(--hover);
 }
 
 
 
 .register-button{
+  font-family: $font;
+  font-weight: 800;
   margin-top: 10px;
   border: 1px solid;
-  padding: 5px;
+  padding: 8px;
   padding-left: 10px;    
+  border-radius: 5%;
   padding-right: 10px;
   text-decoration: none;
-  // color: var(--color);
-  // transition: 1s;
-  
-  
+  outline: none;
+  background: none;
+  color: white;
 }
 
+@media screen and (max-width:450px){
+  .register-box{
+    width: 100%;
+  }
+  
+}

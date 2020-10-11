@@ -66,12 +66,13 @@ function Nav(props) {
           : <div className='nav-profile-container'>
             <div className='nav-register-container' >
               {props.location.pathname !== '/register' &&
-                <Link to='/register'>
+                <Link className='nav-link-test' to='/register'>
                   <h3 className='nav-register-button'>Register</h3>
                 </Link>
               }
               {props.location.pathname !== '/login' &&
-                <Link to='/login'>
+                <Link to='/login'
+                  className='nav-register-button'>
                   <h3 className='nav-register-button'>
                     Login
                 </h3>

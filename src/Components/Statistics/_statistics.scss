@@ -3,8 +3,8 @@
 .grandparent-statistics-container{
   margin-top: 25px;
   font-family: $font;
-  @include flex(row, space-evenly,center);
-  height: 600px;
+  @include flex(row, space-evenly,flex-start);
+  height: 800px;
   width: 100%;
   // background-color: pink;
   padding: 5px;
@@ -37,7 +37,7 @@
   @include flex(column, center, center);
   margin: 10px;
   position: relative;
-  height: 100%;
+  height: 600px;
   box-sizing: border-box;
   width: 450px;
   // background-color: $primary;
@@ -48,14 +48,14 @@
   @include flex(column, center, center);
   margin: 10px;
   position: relative;
-  height: 100%;
+  height: 600px;
   box-sizing: border-box;
   width: 450px;
 }
 
 .delete-stats-button{
   position: absolute;
-  bottom: 5px;
+  bottom: -100px;
   margin: auto;
   background: none;
   border:1px solid;

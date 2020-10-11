@@ -27,6 +27,10 @@ $colors: (
   }
 }
 
+.nav-link-test{
+  text-decoration:none;
+}
+
 .nav-register-container{
   @include flex(row,center,center);
   Link{

@@ -11,13 +11,16 @@ $colors: (
 }
 .login-button{
   &:hover,
-    &:focus { 
+    &:focus {
+      cursor: pointer;
       border-color: var(--hover);
       color: black;
+      transition: 1s;
+      box-shadow: inset 0 -3.25em 0 0 var(--hover);
     }
 }
 $colors: (
-  login-button: rgb(128, 45, 45),
+  login-button: white,
 );
 @each $button, $color in $colors {
   .#{$button} {
@@ -29,10 +32,13 @@ $colors: (
   margin-top: 10px;
   border: 1px solid;
   background-color: none;
-  padding: 5px;
+  padding: 10px;
   padding-left: 10px;    
   padding-right: 10px;
   text-decoration: none;
+  background: none;
+  color: white;
+  outline: none;
   &:hover,
   &:focus{
     box-shadow: inset 0 -3.25em 0 0 var(--hover);
@@ -62,7 +68,6 @@ $colors: (
   @include flex(column,initial,center);
   // font-family: $font;
   // font-weight: 200;
-  width: 100%;
   height: 100vh;
 }
 .login-box{
@@ -80,3 +85,10 @@ $colors: (
   }
 }
 
+
+@media screen and (max-width:450px){
+  .login-box{
+    width: 100%;
+  }
+  
+}

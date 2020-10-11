@@ -450,7 +450,7 @@ function Statistics(props) {
   if (allStats.isLoading === true) {
     return (
       <div className='grandparent-statistics-container'>
-        <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete Stats</button>
+
         <div className='statistics-container-one'>
           <h2>{props.user.username}'s stats.</h2>
           <div className='stats-toggle-category-div'>
@@ -594,6 +594,7 @@ function Statistics(props) {
               motionDamping={15}
             /></div>
         </div>
+        <button className='delete-stats-button' onClick={() => deleteUserStats()}>Delete Stats</button>
       </div >
     )
   } else {
