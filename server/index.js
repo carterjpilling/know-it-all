@@ -6,11 +6,14 @@ const authCtrl = require('./authController')
 const profileCtrl = require('./profileController')
 const statsCtrl = require('./statsController')
 const artCtrl = require('./artController')
+const path = require('path')
 
 const app = express()
 
 const { CONNECTION_STRING, SERVER_PORT, SESSION_SECRET } = process.env
 app.use(express.json())
+
+app.use(express.static(__dirname + '/../build'))
 
 app.use(session({
   secret: SESSION_SECRET,
@@ -18,6 +21,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 365 }
 }))
+
+
 
 app.post('/api/auth/register', authCtrl.registerUser)
 app.post('/api/auth/login', authCtrl.loginUser)
@@ -50,4 +55,8 @@ massive({
   app.set('db', dbInstance)
   console.log('DB is alive!')
   app.listen(SERVER_PORT, () => console.log(`${SERVER_PORT} is alive!`))
+})
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'))
 })
